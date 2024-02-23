@@ -9,11 +9,5 @@ class Token extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'token',
-        'fechavencimiento',
-        'fechacreacion',
-        'ultimaconexion',
-        'usuario_id',
-    ];
+    protected $fillable = 'T_TOKEN';
 }

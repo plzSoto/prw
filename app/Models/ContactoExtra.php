@@ -9,9 +9,5 @@ class ContactoExtra extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nombre',
-        'telefono',
-        'email',
-    ];
+    protected $fillable = 'T_CONTACTOEXTRA';
 }

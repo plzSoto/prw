@@ -9,8 +9,6 @@ class Tamaño extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'tamaño',
-    ];
+    protected $fillable = 'T_TAMAÑO';
 }
 

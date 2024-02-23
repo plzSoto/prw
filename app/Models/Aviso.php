@@ -9,11 +9,5 @@ class Aviso extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'lugardesaparecido',
-        'fechadesaparecido',
-        'animal_id',
-        'contactoextra_id',
-        'estado_id',
-    ];
+    protected $fillable = 'T_AVISO';
 }

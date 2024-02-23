@@ -9,7 +9,5 @@ class Especie extends Model
 {
     use HasFactory;
 
-    protected $fileable = [
-        'especie'
-    ];
+    protected $fileable = 'T_ESPECIE';
 }

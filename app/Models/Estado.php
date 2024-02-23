@@ -9,7 +9,5 @@ class Estado extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'estado',
-    ];
+    protected $fillable = 'T_ESTADO';
 }

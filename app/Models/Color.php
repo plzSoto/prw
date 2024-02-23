@@ -9,7 +9,5 @@ class Color extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'color',
-    ];
+    protected $fillable = 'T_COLOR';
 }

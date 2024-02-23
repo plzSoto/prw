@@ -6,23 +6,13 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UsuarioRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
+    public function validate()
     {
         return [
-            //
+            'nombre' => 'required|string|max:45',
+            'email' => 'required|email|max:50',
+            'contrasena' => 'required|string|max:25',
+            'telefono' => 'required|string|max:20',
         ];
     }
 }

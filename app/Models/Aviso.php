@@ -9,5 +9,16 @@ class Aviso extends Model
 {
     use HasFactory;
 
-    protected $fillable = 'T_AVISO';
+    protected $primaryKey = 'ID';
+
+    protected $table = 't_aviso';
+
+    protected $fillable = [
+        'ID',
+        'FECHADESAPARECIDO',
+        'LUGARDESAPARECIDO',
+        'ANIMAL_ID',
+        'CONTACTOEXTRA_ID',
+        'ESTADO_ID',
+    ];
 }

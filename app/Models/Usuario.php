@@ -9,8 +9,18 @@ class Usuario extends Model
 {
     use HasFactory;
 
-    protected $table = 'T_USUARIO';
-    
+    protected $primaryKey = 'ID';
+
+    protected $table = 't_usuario';
+
+    protected $fillable = [
+        'ID',
+        'NOMBRE',
+        'EMAIL',
+        'CONTRASEÑA',
+        'TELEFONO',
+    ];
+
     public function tokens()
     {
         return $this->hasMany(Token::class, 'USUARIO_ID');

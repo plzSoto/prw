@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\AvisoController;
+use App\Http\Controllers\TokenController;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\EspecieController;
+use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\ContactoExtraController;
 use App\Http\Controllers\TamañoController;
 use App\Http\Controllers\UsuarioController;
@@ -21,22 +23,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::group(['prefix' => 'sosanimales'], function () {
 
-Route::apiResource('avisos', AvisoController::class);
-Route::apiResource('animales', AnimalController::class);
-Route::apiResource('colores', ColorController::class);
-Route::apiResource('contactoextra', ContactoExtraController::class);
-Route::apiResource('especies', EspecieController::class);
-Route::apiResource('tamaños', TamañoController::class);
-Route::apiResource('usuarios', UsuarioController::class);
+    Route::apiResource('aviso', AvisoController::class);
+    Route::apiResource('animal', AnimalController::class);
+    Route::apiResource('color', ColorController::class);
+    Route::apiResource('contactoextra', ContactoExtraController::class);
+    Route::apiResource('especie', EspecieController::class);
+    Route::apiResource('tamaño', TamañoController::class);
+    Route::apiResource('token', TokenController::class);
+    Route::apiResource('usuario', UsuarioController::class);
 
-Route::get('/avisos', function () {
-    return view('avisos');
-});
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::get('/aviso', [AvisoController::class, 'index']);
+    Route::get('/animal', [AnimalController::class, 'index']);
+    Route::get('/color', [ColorController::class, 'index']);
+    Route::get('/contactoextra', [ContactoExtraController::class, 'index']);
+    Route::get('/especie', [EspecieController::class, 'index']);
+    Route::get('/estado', [EstadoController::class, 'index']);
+    Route::get('/tamaño', [TamañoController::class, 'index']);
+    Route::get('/token', [TokenController::class, 'index']);
+    Route::get('/usuario', [UsuarioController::class, 'index']);
 });

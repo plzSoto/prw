@@ -9,6 +9,13 @@ class Tamaño extends Model
 {
     use HasFactory;
 
-    protected $fillable = 'T_TAMAÑO';
+    protected $primaryKey = 'ID';
+
+    protected $table = 't_tamaño';
+
+    protected $fillable = [
+        'ID',
+        'TAMAÑO',
+    ];
 }
 

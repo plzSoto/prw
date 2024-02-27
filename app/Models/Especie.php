@@ -9,5 +9,12 @@ class Especie extends Model
 {
     use HasFactory;
 
-    protected $fileable = 'T_ESPECIE';
+    protected $primaryKey = 'ID';
+
+    protected $table = 't_especie';
+    
+    protected $fileable = [
+        'ID',
+        'ESPECIE',
+    ];
 }

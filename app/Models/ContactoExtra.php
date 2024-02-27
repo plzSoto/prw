@@ -9,5 +9,14 @@ class ContactoExtra extends Model
 {
     use HasFactory;
 
-    protected $fillable = 'T_CONTACTOEXTRA';
+    protected $primaryKey = 'ID';
+
+    protected $table = 't_contactoextra';
+
+    protected $fillable = [
+        'ID',
+        'NOMBRE',
+        'TELEFONO',
+        'EMAIL',
+    ];
 }

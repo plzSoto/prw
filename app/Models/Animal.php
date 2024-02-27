@@ -9,5 +9,17 @@ class Animal extends Model
 {
     use HasFactory;
 
-    protected $fillable = 'T_ANIMAL';
+    protected $primaryKey = 'ID';
+
+    protected $table = 't_animal';
+
+    protected $fillable = [
+        'ID',
+        'NOMBRE',
+        'DESCRIPCION',
+        'IMAGEN',
+        'COLOR_ID',
+        'TAMAÑO_ID',
+        'ESPECIE_ID',
+    ];
 }

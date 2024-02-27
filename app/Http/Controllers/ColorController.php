@@ -8,8 +8,12 @@ class ColorController extends Controller
 {
     public function index()
     {
-        $colores = Color::all();
-        return response()->json($colores);
+        try {
+            $colores = Color::all();
+            return response()->json($colores);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     public function store(Request $request)

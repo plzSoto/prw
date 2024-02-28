@@ -14,7 +14,6 @@ class Aviso extends Model
     protected $table = 't_aviso';
 
     protected $fillable = [
-        'ID',
         'FECHADESAPARECIDO',
         'LUGARDESAPARECIDO',
         'ANIMAL_ID',

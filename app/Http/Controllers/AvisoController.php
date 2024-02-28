@@ -35,7 +35,6 @@ class AvisoController extends Controller
     {
         try {
             $request->validate([
-                'ID' => 'required|integer',
                 'FECHADESAPARECIDO' => 'required|datetime',
                 'LUGARDESAPARECIDO' => 'required|string',
                 'ANIMAL_ID' => 'required|integer',

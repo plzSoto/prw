@@ -35,21 +35,29 @@ class AnimaldbController extends Controller
     }
 
     public function crearAnimal(Request $request)
-    {
-        $datos = $request->only(['NOMBRE', 'DESCRIPCION', 'IMAGEN', 'COLOR_ID', 'TAMAÑO_ID', 'ESPECIE_ID']);
+{
+    // Crear un nuevo animal en la base de datos
+    $animalID = DB::table('t_animal')->insertGetId([
+        'NOMBRE' => $request->input('NOMBRE'), // Corregido el nombre del campo
+        'DESCRIPCION' => $request->input('DESCRIPCION'),
+        'IMAGEN' => $request->input('IMAGEN'),
+        'COLOR_ID' => $request->input('COLOR_ID'),
+        'TAMAÑO_ID' => $request->input('TAMAÑO_ID'),
+        'ESPECIE_ID' => $request->input('ESPECIE_ID'),
+    ]);
 
-        $animalID = DB::table('t_animal')->insertGetId($datos);
+    // Obtener el animal recién creado con las relaciones
+    $animal = DB::table('t_animal')
+        ->leftJoin('t_color', 't_animal.COLOR_ID', '=', 't_color.ID')
+        ->leftJoin('t_especie', 't_animal.ESPECIE_ID', '=', 't_especie.ID')
+        ->leftJoin('t_tamaño', 't_animal.TAMAÑO_ID', '=', 't_tamaño.ID')
+        ->select('t_animal.*', 't_color.COLOR', 't_especie.ESPECIE', 't_tamaño.TAMAÑO')
+        ->where('t_animal.ID', '=', $animalID)
+        ->first();
 
-        $animal = DB::table('t_animal')
-            ->leftJoin('t_color', 't_animal.COLOR_ID', '=', 't_color.ID')
-            ->leftJoin('t_especie', 't_animal.ESPECIE_ID', '=', 't_especie.ID')
-            ->leftJoin('t_tamaño', 't_animal.TAMAÑO_ID', '=', 't_tamaño.ID')
-            ->select('t_animal.*', 't_color.COLOR', 't_especie.ESPECIE', 't_tamaño.TAMAÑO')
-            ->where('t_animal.ID', '=', $animalID)
-            ->first();
+    return response()->json($animal);
+}
 
-        return response()->json($animal);
-    }
 
     public function eliminarAnimal($ID)
     {

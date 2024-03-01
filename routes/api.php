@@ -50,21 +50,21 @@ Route::group(['prefix' => 'sosanimales'], function () {
     Route::post('/animal', [AnimalController::class, 'store']);
     Route::post('/usuario', [UsuarioController::class, 'store']);
 
-    Route::delete('/aviso/{aviso}', [AvisoController::class, 'destroy']);
-    Route::delete('/animal/{animal}', [AnimalController::class, 'destroy']);
-    Route::delete('/contactoextra/{contactoextra}', [ContactoExtraController::class, 'destroy']);
-    Route::delete('/token/{token}', [TokenController::class, 'destroy']);
-    Route::delete('/usuario/{usuario}', [UsuarioController::class, 'destroy']);
+    Route::delete('/aviso/{ID}', [AvisoController::class, 'destroy']);
+    Route::delete('/animal/{ID}', [AnimalController::class, 'destroy']);
+    Route::delete('/contactoextra/{ID}', [ContactoExtraController::class, 'destroy']);
+    Route::delete('/token/{ID}', [TokenController::class, 'destroy']);
+    Route::delete('/usuario/{ID}', [UsuarioController::class, 'destroy']);
 
-    Route::put('/aviso/{aviso}', [AvisoController::class, 'update']);
-    Route::put('/animal/{animal}', [AnimalController::class, 'update']);
-    Route::put('/contactoextra/{contactoextra}', [ContactoExtraController::class, 'update']);
-    Route::put('/token/{token}', [TokenController::class, 'update']);
-    Route::put('/usuario/{usuario}', [UsuarioController::class, 'update']);
+    Route::put('/aviso/{ID}', [AvisoController::class, 'update']);
+    Route::put('/animal/{ID}', [AnimalController::class, 'update']);
+    Route::put('/contactoextra/{ID}', [ContactoExtraController::class, 'update']);
+    Route::put('/token/{ID}', [TokenController::class, 'update']);
+    Route::put('/usuario/{ID}', [UsuarioController::class, 'update']);
 
-    Route::get('/aviso/{aviso}', [AvisoController::class, 'show']);
-    Route::get('/animal/{animal}', [AnimalController::class, 'show']);
-    Route::get('/contactoextra/{contactoextra}', [ContactoExtraController::class, 'show']);
-    Route::get('/token/{token}', [TokenController::class, 'show']);
-    Route::get('/usuario/{usuario}', [UsuarioController::class, 'show']);
+    Route::get('/aviso/{ID}', [AvisoController::class, 'show']);
+    Route::get('/animal/{ID}', [AnimalController::class, 'show']);
+    Route::get('/contactoextra/{ID}', [ContactoExtraController::class, 'show']);
+    Route::get('/token/{ID}', [TokenController::class, 'show']);
+    Route::get('/usuario/{ID}', [UsuarioController::class, 'show']);
 });

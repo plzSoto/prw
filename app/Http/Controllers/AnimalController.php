@@ -20,7 +20,12 @@ class AnimalController extends Controller
 
     public function index()
     {
-        return $this->animaldbController->obtenerAnimal();
+        try {
+            return $this->animaldbController->obtenerAnimal();
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
     }
 
     public function create()
@@ -34,38 +39,59 @@ class AnimalController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'NOMBRE' => 'required',
-            'DESCRIPCION' => 'required',
-            'IMAGEN' => 'required',
-            'COLOR_ID' => 'required',
-            'TAMAÑO_ID' => 'required',
-            'ESPECIE_ID' => 'required',
-        ]);
+        try {
+            $request->validate([
+                'NOMBRE' => 'required',
+                'DESCRIPCION' => 'required',
+                'IMAGEN' => 'required',
+                'COLOR_ID' => 'required',
+                'TAMAÑO_ID' => 'required',
+                'ESPECIE_ID' => 'required',
+            ]);
 
-        return $this->animaldbController->crearAnimal($request);
+            return $this->animaldbController->crearAnimal($request);
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
     }
+
     public function show($id)
     {
-        return $this->animaldbController->obtenerAnimalPorID($id);
+        try {
+            return $this->animaldbController->obtenerAnimalPorID($id);
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
     }
 
     public function update(Request $request, Animal $animal)
     {
-        $request->validate([
-            'NOMBRE' => 'string',
-            'DESCRIPCION' => 'string',
-            'IMAGEN' => 'string',
-            'COLOR_ID' => 'integer',
-            'TAMAÑO_ID' => 'integer',
-            'ESPECIE_ID' => 'integer',
-        ]);
+        try {
+            $request->validate([
+                'NOMBRE' => 'string',
+                'DESCRIPCION' => 'string',
+                'IMAGEN' => 'string',
+                'COLOR_ID' => 'integer',
+                'TAMAÑO_ID' => 'integer',
+                'ESPECIE_ID' => 'integer',
+            ]);
 
-        return $this->animaldbController->actualizarAnimal($request, $animal->ID);
+            return $this->animaldbController->actualizarAnimal($request, $animal->ID);
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
     }
 
     public function destroy(Animal $animal)
     {
-        return $this->animaldbController->eliminarAnimal($animal->ID);
+        try {
+            return $this->animaldbController->eliminarAnimal($animal->ID);
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
     }
 }

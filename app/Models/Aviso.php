@@ -20,4 +20,19 @@ class Aviso extends Model
         'CONTACTOEXTRA_ID',
         'ESTADO_ID',
     ];
+
+    public function Animal()
+    {
+        return $this->belongsTo('App\Models\Animal', 'ANIMAL_ID');
+    }
+
+    public function ContactoExtra()
+    {
+        return $this->belongsTo('App\Models\ContactoExtra', 'CONTACTOEXTRA_ID');
+    }
+
+    public function Estado()
+    {
+        return $this->belongsTo('App\Models\Estado', 'ESTADO_ID');
+    }
 }

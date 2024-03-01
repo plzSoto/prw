@@ -25,16 +25,16 @@ class Animal extends Model
 
     public function Color()
     {
-        return $this->belongsTo('App\Models\Color', 'ID');
+        return $this->belongsTo('App\Models\Color', 'COLOR_ID');
     }
 
     public function Especie()
     {
-        return $this->belongsTo('App\Models\Especie', 'ID');
+        return $this->belongsTo('App\Models\Especie', 'ESPECIE_ID');
     }
 
     public function Tamaño()
     {
-        return $this->belongsTo('App\Models\Tamaño', 'ID');
+        return $this->belongsTo('App\Models\Tamaño', 'TAMAÑO_ID');
     }
 }

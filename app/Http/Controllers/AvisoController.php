@@ -7,15 +7,21 @@ use App\Models\Animal;
 use App\Models\ContactoExtra;
 use App\Models\Estado;
 use Illuminate\Http\Request;
-use App\Exceptions\AvisoErrorException;
+use App\Http\Controllers\AvisodbController;
 
 class AvisoController extends Controller
 {
+    protected $avisodbController;
+
+    public function __construct(AvisodbController $avisodbController)
+    {
+        $this->avisodbController = $avisodbController;
+    }
+
     public function index()
     {
         try {
-            $aviso = Aviso::all();
-            return response()->json($aviso);
+            return response()->json($this->avisodbController->obtenerAviso());
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -35,16 +41,14 @@ class AvisoController extends Controller
     {
         try {
             $request->validate([
-                'FECHADESAPARECIDO' => 'required|datetime',
-                'LUGARDESAPARECIDO' => 'required|string',
-                'ANIMAL_ID' => 'required|integer',
-                'CONTACTOEXTRA_ID' => 'required|integer',
-                'ESTADO_ID' => 'required|integer',
+                'FECHADESAPARECIDO' => 'date',
+                'LUGARDESAPARECIDO' => 'string',
+                'ANIMAL_ID' => 'integer',
+                'CONTACTOEXTRA_ID' => 'integer',
+                'ESTADO_ID' => 'integer',
             ]);
 
-            $aviso = Aviso::create($request->all());
-
-            return redirect('avisos')->with('success', 'Aviso cargado correctamente');
+            return $this->avisodbController->crearAviso($request);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage(), 'trace' => $e->getTrace()], 500);
         }
@@ -53,44 +57,37 @@ class AvisoController extends Controller
     public function show($id)
     {
         try {
-            $aviso = Aviso::find($id);
-
-            if ($aviso) {
-                return response()->json($aviso);
-            } else {
-                throw new AvisoErrorException();
-            }
-        } catch (AvisoErrorException $e) {
-            return response()->json(['error' => $e->getMessage()], $e->getCode());
+            return $this->avisodbController->obtenerAvisoPorID($id);
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
 
     public function update(Request $request, Aviso $aviso)
     {
-        $request->validate([
-            'FECHADESAPARECIDO' => 'datetime',
-            'LUGARDESAPARECIDO' => 'string',
-            'ANIMAL_ID' => 'integer',
-            'CONTACTOEXTRA_ID' => 'integer',
-            'ESTADO_ID' => 'integer',
-        ]);
+        try {
+            $request->validate([
+                'FECHADESAPARECIDO' => 'date',
+                'LUGARDESAPARECIDO' => 'string',
+                'ANIMAL_ID' => 'integer',
+                'CONTACTOEXTRA_ID' => 'integer',
+                'ESTADO_ID' => 'integer',
+            ]);
 
-        $aviso->update($request->all());
-
-        return response()->json(['message' => 'Aviso actualizado correctamente']);
+            return $this->avisodbController->actualizarAviso($request, $aviso->ID);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     public function destroy(Aviso $aviso)
     {
         try {
-            if ($aviso) {
-                $aviso->delete();
-                return response()->json(['message' => 'Aviso eliminado correctamente']);
-            } else {
-                throw new AvisoErrorException();
-            }
-        } catch (AvisoErrorException $e) {
-            return response()->json(['error' => $e->getMessage()], $e->getCode());
+            return $this->avisodbController->eliminarAviso($aviso->ID);
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
 }

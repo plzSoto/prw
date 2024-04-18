@@ -28,13 +28,17 @@ class AnimalController extends Controller
         }
     }
 
-    public function create()
+    public function loadDataAnimal()
     {
         $color = Color::all();
         $tamaño = Tamaño::all();
         $especie = Especie::all();
 
-        return view('formAnimal', compact('color', 'tamaño', 'especie'));
+        return response()->json([
+            'color' => $color,
+            'tamaño' => $tamaño,
+            'especie' => $especie,
+        ]);
     }
 
     public function store(Request $request)
@@ -49,10 +53,19 @@ class AnimalController extends Controller
                 'ESPECIE_ID' => 'required',
             ]);
 
-            return $this->animaldbController->crearAnimal($request);
+            $animal = new Animal();
+            $animal->NOMBRE = $request->input('NOMBRE');
+            $animal->DESCRIPCION = $request->input('DESCRIPCION');
+            $animal->IMAGEN = $request->input('IMAGEN');
+            $animal->COLOR_ID = $request->input('COLOR_ID');
+            $animal->TAMAÑO_ID = $request->input('TAMAÑO_ID');
+            $animal->ESPECIE_ID = $request->input('ESPECIE_ID');
+            $animal->save();
+
+            return response()->json(['message' => 'Animal creado correctamente'], 200);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
-            return response()->json(['error' => 'Internal Server Error'], 500);
+            return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
 

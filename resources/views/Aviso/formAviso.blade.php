@@ -3,12 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>formAvisos</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Crear Nuevo Aviso</title>
 </head>
 <body>
 
-    <h1>formAvisos</h1>
+<h1>Crear Nuevo Aviso</h1>
+
+<form id="crear-aviso-form">
+    <label for="fechadesaparecido">Fecha desaparecido:</label>
+    <input type="datetime-local" id="fechadesaparecido" required><br><br>
+
+    <label for="lugardesaparecido">Lugar desaparecido:</label>
+    <textarea id="lugardesaparecido" required></textarea><br><br>
+
+
+    <label for="animal_id">Animal:</label>
+    <select id="animal_id" required>
+        <option value="">Seleccionar Animal</option>
+    </select><br><br>
+
+    <label for="contactoextra_id">Contacto extra:</label>
+    <select id="contactoextra_id" >
+        <option value="">Seleccionar Contacto extra</option>
+    </select><br><br>
+
+    <label for="estado_id">Estado:</label>
+    <select id="estado_id" required>
+        <option value="">Seleccionar Estado</option>
+    </select><br><br>
+
+    <button type="button" id="createAviso">Crear Aviso</button>
+</form>
+
+<script src="JavaScript\Aviso\funciones.js"></script>
 
 </body>
 </html>

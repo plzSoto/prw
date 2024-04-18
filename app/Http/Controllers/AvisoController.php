@@ -27,14 +27,17 @@ class AvisoController extends Controller
         }
     }
 
-    public function create()
+    public function loadDataAviso()
     {
-        $aviso = Aviso::all();
         $animal = Animal::all();
         $contactoextra = ContactoExtra::all();
         $estado = Estado::all();
 
-        return view('formAviso', compact('aviso', 'animal', 'contactoextra', 'estado'));
+        return response()->json([
+            'estado' => $estado,
+            'animal' => $animal,
+            'contactoextra' => $contactoextra
+        ]);
     }
 
     public function store(Request $request)
@@ -48,9 +51,18 @@ class AvisoController extends Controller
                 'ESTADO_ID' => 'integer',
             ]);
 
-            return $this->avisodbController->crearAviso($request);
+            $aviso = new Aviso();
+            $aviso->FECHADESAPARECIDO = $request->input('FECHADESAPARECIDO');
+            $aviso->LUGARDESAPARECIDO = $request->input('LUGARDESAPARECIDO');
+            $aviso->ANIMAL_ID = $request->input('ANIMAL_ID');
+            $aviso->CONTACTOEXTRA_ID = $request->input('CONTACTOEXTRA_ID');
+            $aviso->ESTADO_ID = $request->input('ESTADO_ID');
+            $aviso->save();
+
+            return response()->json(['message' => 'Aviso creado correctamente'], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage(), 'trace' => $e->getTrace()], 500);
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
 

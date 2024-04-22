@@ -12,9 +12,14 @@ class Especie extends Model
     protected $primaryKey = 'ID';
 
     protected $table = 't_especie';
-    
+
     protected $fileable = [
         'ID',
         'ESPECIE',
     ];
+
+    public function animales()
+    {
+        return $this->hasMany(Animal::class, 'COLOR_ID');
+    }
 }

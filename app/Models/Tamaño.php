@@ -17,5 +17,10 @@ class Tamaño extends Model
         'ID',
         'TAMAÑO',
     ];
+
+    public function animales()
+    {
+        return $this->hasMany(Animal::class, 'COLOR_ID');
+    }
 }
 

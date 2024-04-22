@@ -93,7 +93,9 @@ async function crearAnimal() {
         const responseData = await response.json();
         console.log("Animal creado exitosamente:", responseData);
 
-        document.getElementById("crear-animal-form").reset();
+        window.location.href = "animal";
+
+        document.getElementById("formAnimal").reset();
     } catch (error) {
         console.error("Error al crear el animal:", error);
         alert("Error al crear el animal");

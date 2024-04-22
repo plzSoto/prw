@@ -17,4 +17,9 @@ class Color extends Model
         'ID',
         'COLOR',
     ];
+
+    public function animales()
+    {
+        return $this->hasMany(Animal::class, 'COLOR_ID');
+    }
 }

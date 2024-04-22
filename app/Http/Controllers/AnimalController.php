@@ -11,6 +11,11 @@ use App\Http\Controllers\AnimaldbController;
 
 class AnimalController extends Controller
 {
+
+    public function mostrarFormularioAnimales()
+    {
+        return view('Animal/formAnimal');
+    }
     protected $animaldbController;
 
     public function __construct(AnimaldbController $animaldbController)
@@ -21,13 +26,14 @@ class AnimalController extends Controller
     public function index()
     {
         try {
-            return $this->animaldbController->obtenerAnimal();
+            $animales = Animal::all(); // Obtener todos los animales desde el modelo Animal
+
+            return view('Animal.animal', compact('animales'));
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
-
     public function loadDataAnimal()
     {
         $color = Color::all();
@@ -98,13 +104,20 @@ class AnimalController extends Controller
         }
     }
 
-    public function destroy(Animal $animal)
+    public function destroy($id)
     {
         try {
-            return $this->animaldbController->eliminarAnimal($animal->ID);
+            $animal = Animal::findOrFail($id);
+
+            // Eliminar el animal sin afectar las relaciones
+            $animal->delete();
+
+            return response()->json(['success' => true]);
+
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
-            return response()->json(['error' => 'Internal Server Error'], 500);
+            return response()->json(['error' => 'Error al eliminar el animal'], 500);
         }
     }
 }
+

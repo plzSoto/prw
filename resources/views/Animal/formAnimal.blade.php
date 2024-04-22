@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- Token CSRF generado por Laravel -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Crear Nuevo Animal</title>
 </head>
@@ -11,15 +11,15 @@
 
 <h1>Crear Nuevo Animal</h1>
 
-<form id="crear-animal-form">
+<form id="formAnimal">
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" required><br><br>
 
     <label for="descripcion">Descripción:</label>
     <textarea id="descripcion" required></textarea><br><br>
 
-    <label for="imagen">URL de la Imagen:</label>
-    <input type="text" id="imagen" required><br><br>
+    <label for="imagen">Imagen:</label>
+    <input type="file" id="imagen" required><br><br>
 
     <label for="color_id">Color:</label>
     <select id="color_id" required>
@@ -39,7 +39,7 @@
     <button type="button" id="createAnimal">Crear Animal</button>
 </form>
 
-<!-- Script externo para cargar datos y enviar formulario -->
+
 <script src="JavaScript\Animal\funciones.js"></script>
 
 </body>

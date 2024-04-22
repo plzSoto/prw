@@ -46,7 +46,13 @@ Route::get('/formAnimal', [AnimalController::class, 'mostrarFormularioAnimales']
 
 Route::delete('/animal/destroy/{id}', [AnimalController::class, 'destroy']);
 
+Route::get('/animal/edit/{id}', [AnimalController::class, 'mostrarFormularioEdit']);
+
+Route::get('/animal/show/{id}', [AnimalController::class, 'show']);
+
 Route::post('/aviso/store', [AvisoController::class, 'store']);
 
 Route::get('/loadDataAviso', [AvisoController::class, 'loadDataAviso']);
+
+
 

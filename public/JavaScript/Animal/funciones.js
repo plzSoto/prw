@@ -22,33 +22,37 @@ async function cargarDatos() {
         const tamañoSelect = document.getElementById("tamaño_id");
         const especieSelect = document.getElementById("especie_id");
 
-        colorSelect.innerHTML = '<option value="">Seleccionar Color</option>';
-        tamañoSelect.innerHTML = '<option value="">Seleccionar Tamaño</option>';
-        especieSelect.innerHTML =
-            '<option value="">Seleccionar Especie</option>';
+        if (colorSelect && tamañoSelect && especieSelect) {
+            colorSelect.innerHTML =
+                '<option value="">Seleccionar Color</option>';
+            tamañoSelect.innerHTML =
+                '<option value="">Seleccionar Tamaño</option>';
+            especieSelect.innerHTML =
+                '<option value="">Seleccionar Especie</option>';
 
-        responseData.color.forEach((color) => {
-            const option = document.createElement("option");
-            option.value = color.ID;
-            option.textContent = color.COLOR;
-            colorSelect.appendChild(option);
-        });
+            responseData.color.forEach((color) => {
+                const option = document.createElement("option");
+                option.value = color.ID;
+                option.textContent = color.COLOR;
+                colorSelect.appendChild(option);
+            });
 
-        responseData.tamaño.forEach((tamaño) => {
-            const option = document.createElement("option");
-            option.value = tamaño.ID;
-            option.textContent = tamaño.TAMAÑO;
-            tamañoSelect.appendChild(option);
-        });
+            responseData.tamaño.forEach((tamaño) => {
+                const option = document.createElement("option");
+                option.value = tamaño.ID;
+                option.textContent = tamaño.TAMAÑO;
+                tamañoSelect.appendChild(option);
+            });
 
-        responseData.especie.forEach((especie) => {
-            const option = document.createElement("option");
-            option.value = especie.ID;
-            option.textContent = especie.ESPECIE;
-            especieSelect.appendChild(option);
-        });
+            responseData.especie.forEach((especie) => {
+                const option = document.createElement("option");
+                option.value = especie.ID;
+                option.textContent = especie.ESPECIE;
+                especieSelect.appendChild(option);
+            });
+        }
     } catch (error) {
-        console.error("Error al cargar los datos:", error);
+        console.error("Error al cargar los datos:", error.message);
         alert("Error al cargar los datos");
     }
 }
@@ -103,3 +107,92 @@ async function crearAnimal() {
 }
 
 document.getElementById("createAnimal").addEventListener("click", crearAnimal);
+
+async function eliminarAnimal(animalId) {
+    try {
+        const csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+
+        const response = await fetch(`/animal/destroy/${animalId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al eliminar el animal");
+        }
+
+        const responseData = await response.json();
+        console.log("Animal eliminado exitosamente:", responseData);
+
+        location.reload();
+    } catch (error) {
+        console.error("Error al eliminar el animal:", error.message);
+        alert("Error al eliminar el animal. Por favor, inténtalo de nuevo.");
+    }
+}
+
+async function editarAnimal(animalId) {
+    try {
+        const response = await fetch(`/animal/show/${animalId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al obtener los datos del animal");
+        }
+
+        const animalData = await response.json();
+        console.log("Datos del animal:", animalData);
+
+        const animalIdElement = document.getElementById("animalId");
+        if (animalIdElement) {
+            animalIdElement.value = animalData.ID;
+        }
+
+        document.getElementById("nombre").value = animalData.NOMBRE;
+        document.getElementById("descripcion").value = animalData.DESCRIPCION;
+        document.getElementById("imagen").value = animalData.IMAGEN;
+        document.getElementById("color_id").value = animalData.COLOR_ID;
+        document.getElementById("tamaño_id").value = animalData.TAMAÑO_ID;
+
+        const colorSelect = document.getElementById("color_id");
+        colorSelect.innerHTML = "";
+        animalData.colores.forEach((color) => {
+            const option = document.createElement("option");
+            option.value = color.ID;
+            option.textContent = color.COLOR;
+            colorSelect.appendChild(option);
+        });
+
+        const tamañoSelect = document.getElementById("tamaño_id");
+        tamañoSelect.innerHTML = "";
+        animalData.tamaños.forEach((tamaño) => {
+            const option = document.createElement("option");
+            option.value = tamaño.ID;
+            option.textContent = tamaño.TAMAÑO;
+            tamañoSelect.appendChild(option);
+        });
+
+        const especieSelect = document.getElementById("especie_id");
+        especieSelect.innerHTML = "";
+        animalData.especies.forEach((especie) => {
+            const option = document.createElement("option");
+            option.value = especie.ID;
+            option.textContent = especie.ESPECIE;
+            especieSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error al editar el animal:", error.message);
+        alert("Error al editar el animal. Por favor, inténtalo de nuevo.");
+    }
+}
+
+document.getElementById("editAnimal").addEventListener("click", editarAnimal);

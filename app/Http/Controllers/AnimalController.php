@@ -7,33 +7,30 @@ use App\Models\Color;
 use App\Models\Tamaño;
 use App\Models\Especie;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AnimaldbController;
 
 class AnimalController extends Controller
 {
-
     public function mostrarFormularioAnimales()
     {
         return view('Animal/formAnimal');
     }
-    protected $animaldbController;
 
-    public function __construct(AnimaldbController $animaldbController)
+    public function mostrarFormularioEdit()
     {
-        $this->animaldbController = $animaldbController;
+        return view('Animal/editAnimal');
     }
 
     public function index()
     {
         try {
-            $animales = Animal::all(); // Obtener todos los animales desde el modelo Animal
-
+            $animales = Animal::all();
             return view('Animal.animal', compact('animales'));
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
+
     public function loadDataAnimal()
     {
         $color = Color::all();
@@ -60,12 +57,7 @@ class AnimalController extends Controller
             ]);
 
             $animal = new Animal();
-            $animal->NOMBRE = $request->input('NOMBRE');
-            $animal->DESCRIPCION = $request->input('DESCRIPCION');
-            $animal->IMAGEN = $request->input('IMAGEN');
-            $animal->COLOR_ID = $request->input('COLOR_ID');
-            $animal->TAMAÑO_ID = $request->input('TAMAÑO_ID');
-            $animal->ESPECIE_ID = $request->input('ESPECIE_ID');
+            $animal->fill($request->all());
             $animal->save();
 
             return response()->json(['message' => 'Animal creado correctamente'], 200);
@@ -78,10 +70,11 @@ class AnimalController extends Controller
     public function show($id)
     {
         try {
-            return $this->animaldbController->obtenerAnimalPorID($id);
+            $animal = Animal::findOrFail($id);
+            return response()->json($animal);
         } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            return response()->json(['error' => 'Internal Server Error'], 500);
+            \Log::error("Error al obtener los datos del animal: " . $e->getMessage());
+            return response()->json(['error' => 'Animal no encontrado'], 404);
         }
     }
 
@@ -89,18 +82,32 @@ class AnimalController extends Controller
     {
         try {
             $request->validate([
-                'NOMBRE' => 'string',
-                'DESCRIPCION' => 'string',
-                'IMAGEN' => 'string',
-                'COLOR_ID' => 'integer',
-                'TAMAÑO_ID' => 'integer',
-                'ESPECIE_ID' => 'integer',
+                'NOMBRE' => 'required|string',
+                'DESCRIPCION' => 'required|string',
+                'IMAGEN' => 'required|string',
+                'COLOR_ID' => 'required|integer',
+                'TAMAÑO_ID' => 'required|integer',
+                'ESPECIE_ID' => 'required|integer',
             ]);
 
-            return $this->animaldbController->actualizarAnimal($request, $animal->ID);
+            $animal->update($request->all());
+
+            return response()->json(['message' => 'Animal actualizado correctamente'], 200);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             return response()->json(['error' => 'Internal Server Error'], 500);
+        }
+    }
+
+    public function edit($id)
+    {
+        try {
+            $animal = Animal::findOrFail($id);
+
+            return view('Animal.editAnimal', compact('animal'));
+        } catch (\Exception $e) {
+            \Log::error("Error al obtener los datos del animal: " . $e->getMessage());
+            return response()->json(['error' => 'Animal no encontrado'], 404);
         }
     }
 
@@ -108,16 +115,12 @@ class AnimalController extends Controller
     {
         try {
             $animal = Animal::findOrFail($id);
-
-            // Eliminar el animal sin afectar las relaciones
             $animal->delete();
 
             return response()->json(['success' => true]);
-
         } catch (\Exception $e) {
-            \Log::error($e->getMessage());
+            \Log::error("Error al eliminar el animal: " . $e->getMessage());
             return response()->json(['error' => 'Error al eliminar el animal'], 500);
         }
     }
 }
-

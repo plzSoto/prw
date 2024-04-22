@@ -19,7 +19,7 @@
     <textarea id="descripcion" required></textarea><br><br>
 
     <label for="imagen">Imagen:</label>
-    <input type="file" id="imagen" required><br><br>
+    <input type="text" id="imagen" required><br><br>
 
     <label for="color_id">Color:</label>
     <select id="color_id" required>

@@ -138,7 +138,6 @@ async function eliminarAnimal(animalId) {
 
 async function actualizarAnimal(animalId) {
     try {
-        // Obtener los nuevos datos del animal del formulario
         const nombre = document.getElementById("nombre").value;
         const descripcion = document.getElementById("descripcion").value;
         const imagen = document.getElementById("imagen").value;
@@ -146,7 +145,6 @@ async function actualizarAnimal(animalId) {
         const tamañoId = document.getElementById("tamaño_id").value;
         const especieId = document.getElementById("especie_id").value;
 
-        // Construir el objeto con los datos actualizados del animal
         const animalData = {
             NOMBRE: nombre,
             DESCRIPCION: descripcion,
@@ -156,11 +154,10 @@ async function actualizarAnimal(animalId) {
             ESPECIE_ID: especieId,
         };
 
-        // Realizar la solicitud PUT al servidor
         const csrfToken = document
             .querySelector('meta[name="csrf-token"]')
             .getAttribute("content");
-        const response = await fetch(`/animals/${animalId}`, {
+        const response = await fetch(`/animal/${animalId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -169,16 +166,13 @@ async function actualizarAnimal(animalId) {
             body: JSON.stringify(animalData),
         });
 
-        // Verificar si la solicitud fue exitosa
         if (!response.ok) {
             throw new Error("Error al actualizar el animal");
         }
 
-        // Mostrar mensaje de éxito al usuario
         alert("Animal actualizado correctamente");
 
-        // Redirigir a la página de lista de animales u otra página después de la edición
-        window.location.href = "{{ route('animal.index') }}";
+        window.location.href = "/animal";
     } catch (error) {
         console.error("Error al actualizar el animal:", error.message);
         alert("Error al actualizar el animal. Por favor, inténtalo de nuevo.");

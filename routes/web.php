@@ -54,7 +54,7 @@ Route::get('/editAnimal', [AnimalController::class, 'mostrarFormularioEdit']);
 
 Route::delete('/animal/destroy/{id}', [AnimalController::class, 'destroy']);
 
-Route::put('/animal/update/{id}', [AnimalController::class, 'update']);
+Route::put('/animal/{id}', [AnimalController::class, 'update']);
 
 Route::get('/api/animales/{id}', [AnimalController::class, 'show']);
 

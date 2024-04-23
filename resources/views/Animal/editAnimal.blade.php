@@ -21,26 +21,21 @@
         <label for="color_id">Color:</label>
         <select id="color_id" required>
             <option value="{{ $animal->COLOR_ID }}">{{ $animal->color->COLOR }}</option>
-            <!-- Aquí puedes incluir opciones para otros colores disponibles -->
         </select><br><br>
 
         <label for="tamaño_id">Tamaño:</label>
         <select id="tamaño_id" required>
             <option value="{{ $animal->TAMAÑO_ID }}">{{ $animal->tamaño->TAMAÑO }}</option>
-            <!-- Aquí puedes incluir opciones para otros tamaños disponibles -->
         </select><br><br>
 
         <label for="especie_id">Especie:</label>
         <select id="especie_id" required>
             <option value="{{ $animal->ESPECIE_ID }}">{{ $animal->especie->ESPECIE }}</option>
-            <!-- Aquí puedes incluir opciones para otras especies disponibles -->
         </select><br><br>
 
-        <!-- Botón para editar el animal -->
-        <button type="button" onclick="actualizarAnimal({{ $animal->ID }})">Editar Animal</button>
+        <button onclick="actualizarAnimal({{ $animal->ID }})">Actualizar</button>
     </form>
 
-    <!-- Incluir tu archivo JavaScript con las funciones de carga y actualización -->
     <script src="{{ asset('JavaScript/Animal/funciones.js') }}"></script>
 </body>
 </html>

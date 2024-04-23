@@ -28,6 +28,10 @@ Route::get("/formAviso", function () {
     return view("Aviso.formAviso");
 });
 
+Route::get('/editAnimal', function () {
+    return view('Animal.editAnimal');
+});
+
 Route::get("/animales", function () {
     return view("Animal.animal");
 });
@@ -36,7 +40,9 @@ Route::get("/formAnimal", function () {
     return view("Animal.formAnimal");
 });
 
-Route::get('/animal', [AnimalController::class, 'index']);
+Route::get('/animal/edit/{id}', [AnimalController::class, 'edit'])->name('Animal.editAnimal');
+
+Route::get('/animal', [AnimalController::class, 'vista']);
 
 Route::post('/animal/store', [AnimalController::class, 'store']);
 
@@ -44,11 +50,15 @@ Route::get('/loadDataAnimal', [AnimalController::class, 'loadDataAnimal']);
 
 Route::get('/formAnimal', [AnimalController::class, 'mostrarFormularioAnimales']);
 
+Route::get('/editAnimal', [AnimalController::class, 'mostrarFormularioEdit']);
+
 Route::delete('/animal/destroy/{id}', [AnimalController::class, 'destroy']);
 
-Route::get('/animal/edit/{id}', [AnimalController::class, 'mostrarFormularioEdit']);
+Route::put('/animal/update/{id}', [AnimalController::class, 'update']);
 
-Route::get('/animal/show/{id}', [AnimalController::class, 'show']);
+Route::get('/api/animales/{id}', [AnimalController::class, 'show']);
+
+Route::get('/animal/{id}', [AnimalController::class, 'show']);
 
 Route::post('/aviso/store', [AvisoController::class, 'store']);
 

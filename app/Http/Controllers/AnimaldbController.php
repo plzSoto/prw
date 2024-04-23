@@ -58,7 +58,6 @@ class AnimaldbController extends Controller
     return response()->json($animal);
 }
 
-
     public function eliminarAnimal($ID)
     {
         // Eliminar un animal de la base de datos

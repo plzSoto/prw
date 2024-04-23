@@ -136,63 +136,55 @@ async function eliminarAnimal(animalId) {
     }
 }
 
-async function editarAnimal(animalId) {
+async function actualizarAnimal(animalId) {
     try {
-        const response = await fetch(`/animal/show/${animalId}`, {
-            method: "GET",
+        // Obtener los nuevos datos del animal del formulario
+        const nombre = document.getElementById("nombre").value;
+        const descripcion = document.getElementById("descripcion").value;
+        const imagen = document.getElementById("imagen").value;
+        const colorId = document.getElementById("color_id").value;
+        const tamañoId = document.getElementById("tamaño_id").value;
+        const especieId = document.getElementById("especie_id").value;
+
+        // Construir el objeto con los datos actualizados del animal
+        const animalData = {
+            NOMBRE: nombre,
+            DESCRIPCION: descripcion,
+            IMAGEN: imagen,
+            COLOR_ID: colorId,
+            TAMAÑO_ID: tamañoId,
+            ESPECIE_ID: especieId,
+        };
+
+        // Realizar la solicitud PUT al servidor
+        const csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+        const response = await fetch(`/animals/${animalId}`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
             },
+            body: JSON.stringify(animalData),
         });
 
+        // Verificar si la solicitud fue exitosa
         if (!response.ok) {
-            throw new Error("Error al obtener los datos del animal");
+            throw new Error("Error al actualizar el animal");
         }
 
-        const animalData = await response.json();
-        console.log("Datos del animal:", animalData);
+        // Mostrar mensaje de éxito al usuario
+        alert("Animal actualizado correctamente");
 
-        const animalIdElement = document.getElementById("animalId");
-        if (animalIdElement) {
-            animalIdElement.value = animalData.ID;
-        }
-
-        document.getElementById("nombre").value = animalData.NOMBRE;
-        document.getElementById("descripcion").value = animalData.DESCRIPCION;
-        document.getElementById("imagen").value = animalData.IMAGEN;
-        document.getElementById("color_id").value = animalData.COLOR_ID;
-        document.getElementById("tamaño_id").value = animalData.TAMAÑO_ID;
-
-        const colorSelect = document.getElementById("color_id");
-        colorSelect.innerHTML = "";
-        animalData.colores.forEach((color) => {
-            const option = document.createElement("option");
-            option.value = color.ID;
-            option.textContent = color.COLOR;
-            colorSelect.appendChild(option);
-        });
-
-        const tamañoSelect = document.getElementById("tamaño_id");
-        tamañoSelect.innerHTML = "";
-        animalData.tamaños.forEach((tamaño) => {
-            const option = document.createElement("option");
-            option.value = tamaño.ID;
-            option.textContent = tamaño.TAMAÑO;
-            tamañoSelect.appendChild(option);
-        });
-
-        const especieSelect = document.getElementById("especie_id");
-        especieSelect.innerHTML = "";
-        animalData.especies.forEach((especie) => {
-            const option = document.createElement("option");
-            option.value = especie.ID;
-            option.textContent = especie.ESPECIE;
-            especieSelect.appendChild(option);
-        });
+        // Redirigir a la página de lista de animales u otra página después de la edición
+        window.location.href = "{{ route('animal.index') }}";
     } catch (error) {
-        console.error("Error al editar el animal:", error.message);
-        alert("Error al editar el animal. Por favor, inténtalo de nuevo.");
+        console.error("Error al actualizar el animal:", error.message);
+        alert("Error al actualizar el animal. Por favor, inténtalo de nuevo.");
     }
 }
 
-document.getElementById("editAnimal").addEventListener("click", editarAnimal);
+function editAnimal(animalId) {
+    window.location.href = `editAnimal?id=${animalId}`;
+}

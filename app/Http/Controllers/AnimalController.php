@@ -7,6 +7,7 @@ use App\Models\Color;
 use App\Models\Tamaño;
 use App\Models\Especie;
 use Illuminate\Http\Request;
+use App\Http\Controllers\AnimaldbController;
 
 class AnimalController extends Controller
 {
@@ -20,7 +21,23 @@ class AnimalController extends Controller
         return view('Animal/editAnimal');
     }
 
+    protected $animaldbController;
+
+    public function __construct(animaldbController $animaldbController)
+    {
+        $this->animaldbController = $animaldbController;
+    }
+
     public function index()
+    {
+        try {
+            return response()->json($this->animaldbController->obtenerAnimal());
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function vista()
     {
         try {
             $animales = Animal::all();
@@ -73,30 +90,22 @@ class AnimalController extends Controller
             $animal = Animal::findOrFail($id);
             return response()->json($animal);
         } catch (\Exception $e) {
-            \Log::error("Error al obtener los datos del animal: " . $e->getMessage());
             return response()->json(['error' => 'Animal no encontrado'], 404);
         }
     }
 
-    public function update(Request $request, Animal $animal)
+    public function update(Request $request, $id)
     {
-        try {
-            $request->validate([
-                'NOMBRE' => 'required|string',
-                'DESCRIPCION' => 'required|string',
-                'IMAGEN' => 'required|string',
-                'COLOR_ID' => 'required|integer',
-                'TAMAÑO_ID' => 'required|integer',
-                'ESPECIE_ID' => 'required|integer',
-            ]);
+        $animal = Animal::findOrFail($id);
+        $animal->NOMBRE = $request->input('NOMBRE');
+        $animal->DESCRIPCION = $request->input('DESCRIPCION');
+        $animal->IMAGEN = $request->input('IMAGEN');
+        $animal->COLOR_ID = $request->input('COLOR_ID');
+        $animal->TAMAÑO_ID = $request->input('TAMAÑO_ID');
+        $animal->ESPECIE_ID = $request->input('ESPECIE_ID');
+        $animal->save();
 
-            $animal->update($request->all());
-
-            return response()->json(['message' => 'Animal actualizado correctamente'], 200);
-        } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            return response()->json(['error' => 'Internal Server Error'], 500);
-        }
+        return response()->json(['message' => 'Animal actualizado correctamente'], 200);
     }
 
     public function edit($id)

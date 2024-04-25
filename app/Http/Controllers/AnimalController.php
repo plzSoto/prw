@@ -16,7 +16,7 @@ class AnimalController extends Controller
         return view('Animal/formAnimal');
     }
 
-    public function mostrarFormularioEdit()
+    public function mostrarFormularioEditAnimales()
     {
         return view('Animal/editAnimal');
     }

@@ -11,6 +11,17 @@ use App\Http\Controllers\AvisodbController;
 
 class AvisoController extends Controller
 {
+
+    public function mostrarFormularioAvisos()
+    {
+        return view('Aviso/formAviso');
+    }
+
+    public function mostrarFormularioEditAvisos()
+    {
+        return view('Aviso/editAviso');
+    }
+
     protected $avisodbController;
 
     public function __construct(AvisodbController $avisodbController)
@@ -24,6 +35,17 @@ class AvisoController extends Controller
             return response()->json($this->avisodbController->obtenerAviso());
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function vista()
+    {
+        try {
+            $avisos = Aviso::all();
+            return view('Aviso.aviso', compact('avisos'));
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
 
@@ -44,19 +66,15 @@ class AvisoController extends Controller
     {
         try {
             $request->validate([
-                'FECHADESAPARECIDO' => 'date',
-                'LUGARDESAPARECIDO' => 'string',
-                'ANIMAL_ID' => 'integer',
-                'CONTACTOEXTRA_ID' => 'integer',
-                'ESTADO_ID' => 'integer',
+                'FECHADESAPARECIDO' => 'required',
+                'LUGARDESAPARECIDO' => 'required',
+                'ANIMAL_ID' => 'required',
+                'CONTACTOEXTRA_ID' => 'required',
+                'ESTADO_ID' => 'required',
             ]);
 
             $aviso = new Aviso();
-            $aviso->FECHADESAPARECIDO = $request->input('FECHADESAPARECIDO');
-            $aviso->LUGARDESAPARECIDO = $request->input('LUGARDESAPARECIDO');
-            $aviso->ANIMAL_ID = $request->input('ANIMAL_ID');
-            $aviso->CONTACTOEXTRA_ID = $request->input('CONTACTOEXTRA_ID');
-            $aviso->ESTADO_ID = $request->input('ESTADO_ID');
+            $aviso->fill($request->all());
             $aviso->save();
 
             return response()->json(['message' => 'Aviso creado correctamente'], 200);
@@ -69,37 +87,49 @@ class AvisoController extends Controller
     public function show($id)
     {
         try {
-            return $this->avisodbController->obtenerAvisoPorID($id);
+            $aviso = Aviso::findOrFail($id);
+            return response()->json($aviso);
         } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            return response()->json(['error' => 'Internal Server Error'], 500);
+            return response()->json(['error' => 'Aviso no encontrado'], 404);
         }
     }
 
-    public function update(Request $request, Aviso $aviso)
+    public function update(Request $request, $id)
+    {
+        $aviso = Aviso::findOrFail($id);
+
+        $aviso->FECHADESAPARECIDO = $request->input('FECHADESAPARECIDO');
+        $aviso->LUGARDESAPARECIDO = $request->input('LUGARDESAPARECIDO');
+        $aviso->ANIMAL_ID = $request->input('ANIMAL_ID');
+        $aviso->CONTACTOEXTRA_ID = $request->input('CONTACTOEXTRA_ID');
+        $aviso->ESTADO_ID = $request->input('ESTADO_ID');
+
+        $aviso->save();
+
+        return response()->json(['message' => 'Aviso actualizado correctamente'], 200);
+    }
+
+
+    public function edit($id)
     {
         try {
-            $request->validate([
-                'FECHADESAPARECIDO' => 'date',
-                'LUGARDESAPARECIDO' => 'string',
-                'ANIMAL_ID' => 'integer',
-                'CONTACTOEXTRA_ID' => 'integer',
-                'ESTADO_ID' => 'integer',
-            ]);
-
-            return $this->avisodbController->actualizarAviso($request, $aviso->ID);
+            $aviso = Aviso::with('animal', 'contactoextra', 'estado')->findOrFail($id);
+            return view('Aviso.editAviso', compact('aviso'));
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return redirect()->route('aviso.index')->with('error', 'Aviso no encontrado.');
         }
     }
 
-    public function destroy(Aviso $aviso)
+    public function destroy($id)
     {
         try {
-            return $this->avisodbController->eliminarAviso($aviso->ID);
+            $aviso = Aviso::findOrFail($id);
+            $aviso->delete();
+
+            return response()->json(['success' => true]);
         } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            return response()->json(['error' => 'Internal Server Error'], 500);
+            \Log::error("Error al eliminar el Aviso: " . $e->getMessage());
+            return response()->json(['error' => 'Error al eliminar el Aviso'], 500);
         }
     }
 }

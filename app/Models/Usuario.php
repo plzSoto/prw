@@ -4,25 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Usuario extends Model
+class Usuario extends Authenticatable
 {
     use HasFactory;
-
-    protected $primaryKey = 'ID';
 
     protected $table = 't_usuario';
 
     protected $fillable = [
-        'ID',
-        'NOMBRE',
-        'EMAIL',
-        'CONTRASEÑA',
-        'TELEFONO',
+        'nombre', 'email', 'contraseña', 'telefono',
     ];
 
-    public function tokens()
-    {
-        return $this->hasMany(Token::class, 'USUARIO_ID');
-    }
+    protected $hidden = [
+        'contraseña',
+    ];
 }

@@ -98,16 +98,13 @@ async function crearAviso() {
         const responseData = await response.json();
         console.log("Aviso creado exitosamente:", responseData);
 
-        // Vuelve a cargar los datos después de crear el aviso
         await cargarDatos();
 
-        // Redirige a la página de avisos
         window.location.href = "aviso";
 
         document.getElementById("formAviso").reset();
     } catch (error) {
         console.error("Error al crear el aviso:", error);
-        alert("Error al crear el aviso");
     }
 }
 

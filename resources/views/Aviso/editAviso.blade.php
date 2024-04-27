@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ asset('css/Aviso/editAviso.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/botones.css') }}">
     <title>Editar Aviso</title>
 </head>
 <body>
@@ -33,7 +35,7 @@
             <!-- Aquí puedes agregar más opciones si corresponde -->
         </select><br><br>
 
-        <button type="button" onclick="actualizarAviso({{ $aviso->ID }})">Actualizar</button>
+        <button class="actualizar" type="button" onclick="actualizarAviso({{ $aviso->ID }})">Actualizar</button>
     </form>
 
     <script src="{{ asset('JavaScript/Aviso/funciones.js') }}"></script>

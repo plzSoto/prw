@@ -1,0 +1,63 @@
+.editar {
+    background-color: #4caf50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.iniciarSesion {
+    background-color: #4caf50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.eliminar {
+    background-color: #e33c3c;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.crear,
+.actualizar {
+    background-color: #4caf50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 3px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.crear:hover {
+    background-color: #16951c;
+}
+
+.editar:hover {
+    background-color: #16951c;
+}
+
+.actualizar:hover {
+    background-color: #16951c;
+}
+
+.iniciarSesion:hover {
+    background-color: #16951c;
+}
+
+.eliminar:hover {
+    background-color: #ff0000;
+}

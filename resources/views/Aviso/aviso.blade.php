@@ -4,22 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ asset('css/Aviso/aviso.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/botones.css') }}">
     <title>Lista de Avisos</title>
 </head>
 <body>
     <h1>Lista de Avisos</h1>
 
-    @foreach($avisos as $aviso)
-    <div class="aviso-card" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-        <h2>{{ $aviso->LUGARDESAPARECIDO }}</h2>
+    <div class="container">
+        @foreach($avisos as $aviso)
+        <div class="aviso">
+        <p>{{ $aviso->animal ? $aviso->animal->IMAGEN : 'No disponible' }}</p>
+        <h2><strong>C/: </strong>{{ $aviso->LUGARDESAPARECIDO }}</h2>
         <p><strong>Fecha desaparecido:</strong> {{ $aviso->FECHADESAPARECIDO }}</p>
         <p><strong>Nombre animal:</strong> {{ $aviso->animal ? $aviso->animal->NOMBRE : 'No disponible' }}</p>
         <p><strong>Nombre contacto:</strong> {{ $aviso->contactoextra ? $aviso->contactoextra->NOMBRE : 'No disponible' }}</p>
+        <p><strong>Telefono contacto:</strong> {{ $aviso->contactoextra ? $aviso->contactoextra->TELEFONO : 'No disponible' }}</p>
+        <p><strong>Email contacto:</strong> {{ $aviso->contactoextra ? $aviso->contactoextra->EMAIL : 'No disponible' }}</p>
         <p><strong>Estado:</strong> {{ $aviso->estado ? $aviso->estado->ESTADO : 'No disponible' }}</p>
-        <button onclick="window.location.href = '{{ route('Aviso.editAviso', ['id' => $aviso->ID]) }}'">Editar</button>
-        <button onclick="eliminarAviso({{ $aviso->ID }})">Eliminar</button>
+        <button class="editar" onclick="window.location.href = '{{ route('Aviso.editAviso', ['id' => $aviso->ID]) }}'">Editar</button>
+        <button class="eliminar" onclick="eliminarAviso({{ $aviso->ID }})">Eliminar</button>
+        </div>
+        @endforeach
     </div>
-@endforeach
 
 @if(count($avisos) === 0)
     <p>No hay avisos registrados.</p>

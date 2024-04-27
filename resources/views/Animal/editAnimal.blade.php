@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ asset('css/Animal/editAnimal.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/botones.css') }}">
     <title>Editar Animal</title>
 </head>
 <body>
@@ -33,7 +35,7 @@
             <option value="{{ $animal->ESPECIE_ID }}">{{ $animal->especie->ESPECIE }}</option>
         </select><br><br>
 
-        <button onclick="actualizarAnimal({{ $animal->ID }})">Actualizar</button>
+        <button class="actualizar" type="button" onclick="actualizarAnimal({{ $animal->ID }})">Actualizar</button>
     </form>
 
     <script src="{{ asset('JavaScript/Animal/funciones.js') }}"></script>

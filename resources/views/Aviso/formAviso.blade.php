@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ asset('css/Aviso/formAviso.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/botones.css') }}">
 
     <title>Crear Nuevo Aviso</title>
 </head>
@@ -34,7 +36,7 @@
         <option value="">Seleccionar Estado</option>
     </select><br><br>
 
-    <button type="button" id="createAviso">Crear Aviso</button>
+    <button class="crear" type="button" id="createAviso">Crear Aviso</button>
 </form>
 
 <script src="JavaScript\Aviso\funciones.js"></script>

@@ -28,27 +28,6 @@ class UsuarioController extends Controller
         }
     }
 
-    public function store(Request $request)
-    {
-        try {
-            $request->validate([
-                'nombre' => 'required',
-                'email' => 'required',
-                'contraseña' => 'required',
-                'telefono' => 'required',
-            ]);
-
-            $usuario = new Usuario();
-            $usuario->fill($request->all());
-            $usuario->save();
-
-            return response()->json(['message' => 'Usuario creado correctamente'], 200);
-        } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            return response()->json(['error' => 'Error interno del servidor'], 500);
-        }
-    }
-
     public function show($id)
     {
         try {
@@ -56,18 +35,6 @@ class UsuarioController extends Controller
             return response()->json($usuario);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Usuario no encontrado'], 404);
-        }
-    }
-
-    public function destroy($id)
-    {
-        try {
-            $usuario = Usuario::findOrFail($id);
-            $usuario->delete();
-            return response()->json(['message' => 'Usuario eliminado correctamente'], 200);
-        } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
 }

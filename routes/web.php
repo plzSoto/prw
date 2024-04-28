@@ -4,11 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\AvisoController;
 use App\Http\Controllers\ContactoExtraController;
-
+use App\Http\Controllers\UsuarioController;
 
 Route::get("/", function () {
     return view("Login.login");
 });
+
+Route::get('/login', [UsuarioController::class, 'formLogin'])->name('login');
+
+Route::post('/login', [UsuarioController::class, 'login']);
+
+Route::post('/logout', [UsuarioController::class, 'logout'])->name('logout');
 
 Route::get('/loadDataAviso', [AvisoController::class, 'loadDataAviso']);
 
@@ -44,6 +50,8 @@ Route::delete('/aviso/destroy/{id}', [AvisoController::class, 'destroy']);
 
 Route::delete('/contactoExtra/{id}', [ContactoExtraController::class, 'destroy']);
 
+Route::delete('/aviso/dpAnimal/{animalId}', [AvisoController::class, 'destroyAvisoPorAnimal']);
+
 Route::put('/animal/{id}', [AnimalController::class, 'update']);
 
 Route::put('/aviso/{id}', [AvisoController::class, 'update']);
@@ -55,9 +63,6 @@ Route::get('/animal/edit/{id}', [AnimalController::class, 'edit'])->name('Animal
 Route::get('/aviso/edit/{id}', [AvisoController::class, 'edit'])->name('Aviso.editAviso');
 
 Route::get('/contactoExtra/edit/{id}', [ContactoExtraController::class, 'edit'])->name('ContactoExtra.editContactoExtra');
-
-
-
 
 
 

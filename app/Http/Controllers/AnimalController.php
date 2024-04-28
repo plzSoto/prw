@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Animal;
+use App\Models\Aviso;
 use App\Models\Color;
 use App\Models\Tamaño;
 use App\Models\Especie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AnimaldbController;
+
 
 class AnimalController extends Controller
 {
@@ -123,6 +125,7 @@ class AnimalController extends Controller
     public function destroy($id)
     {
         try {
+            $this->eliminarAvisoPorAnimal($id);
             $animal = Animal::findOrFail($id);
             $animal->delete();
 
@@ -130,6 +133,17 @@ class AnimalController extends Controller
         } catch (\Exception $e) {
             \Log::error("Error al eliminar el animal: " . $e->getMessage());
             return response()->json(['error' => 'Error al eliminar el animal'], 500);
+        }
+    }
+
+    public function eliminarAvisoPorAnimal($animalId)
+    {
+        try {
+            Aviso::where('ANIMAL_ID', $animalId)->delete();
+            return true;
+        } catch (\Exception $e) {
+            \Log::error("Error al eliminar los avisos asociados al animal: " . $e->getMessage());
+            return false;
         }
     }
 }

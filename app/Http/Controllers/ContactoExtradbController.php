@@ -9,7 +9,6 @@ class ContactoExtraController extends Controller
 {
     public function obtenerContactoExtra()
     {
-        // Obtener todos los contactos extras
         $contactosExtras = DB::table('t_contactoextra')->get();
 
         return response()->json($contactosExtras);
@@ -17,7 +16,6 @@ class ContactoExtraController extends Controller
 
     public function obtenerContactoExtraPorID($ID)
     {
-        // Obtener un contacto extra por su ID
         $contactoExtra = DB::table('t_contactoextra')->where('ID', $ID)->first();
 
         return response()->json($contactoExtra);

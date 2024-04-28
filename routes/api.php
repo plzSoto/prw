@@ -55,6 +55,7 @@ Route::group(['prefix' => 'sosanimales'], function () {
     Route::delete('/contactoextra/{ID}', [ContactoExtraController::class, 'destroy']);
     Route::delete('/token/{ID}', [TokenController::class, 'destroy']);
     Route::delete('/usuario/{ID}', [UsuarioController::class, 'destroy']);
+    Route::delete('/aviso/dpAnimal/{animalId}', [AvisoController::class, 'destroyAvisoPorAnimal']);
 
     Route::put('/aviso/{ID}', [AvisoController::class, 'update']);
     Route::put('/animal/{ID}', [AnimalController::class, 'update']);

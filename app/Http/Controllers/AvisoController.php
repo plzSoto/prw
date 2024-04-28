@@ -132,4 +132,16 @@ class AvisoController extends Controller
             return response()->json(['error' => 'Error al eliminar el Aviso'], 500);
         }
     }
+
+    public function destroyAvisoPorAnimal($animalId)
+    {
+        try {
+            Aviso::where('ANIMAL_ID', $animalId)->delete();
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            \Log::error("Error al eliminar los avisos asociados al animal: " . $e->getMessage());
+            return response()->json(['error' => 'Error al eliminar los avisos asociados al animal'], 500);
+        }
+    }
+
 }

@@ -36,10 +36,10 @@
         <option value="">Seleccionar Estado</option>
     </select><br><br>
 
-    <button class="crear" type="button" id="createAviso">Crear Aviso</button>
+    <button class="crear" type="button" id="crearAviso">Crear Aviso</button>
 </form>
 
-<script src="JavaScript\Aviso\funciones.js"></script>
+<script type="module" src="{{ asset('JavaScript/Aviso/aviso.js') }}"></script>
 
 </body>
 </html>

@@ -20,9 +20,9 @@
         <label for="email">Email:</label>
         <input type="text" id="email" value="{{ $contactoExtra->EMAIL }}" required><br><br>
 
-        <button class="actualizar" type="button" onclick="actualizarContactoExtra({{ $contactoExtra->ID }})">Actualizar</button>
+        <button class="editar" type="button" id="{{ $contactoExtra->ID }}">Actualizar</button>
     </form>
 
-    <script src="{{ asset('JavaScript/ContactoExtra/funciones.js') }}"></script>
+    <script type="module" src="{{ asset('JavaScript/ContactoExtra/contactoExtra.js') }}"></script>
 </body>
 </html>

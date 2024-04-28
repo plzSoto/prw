@@ -22,10 +22,10 @@
     <label for="email">Email:</label>
     <input type="email" id="email"><br><br>
 
-    <button class="crear" type="button" id="createContactoExtra">Crear Contacto Extra</button>
+    <button class="crear" type="button" id="crearContactoExtra">Crear Contacto Extra</button>
 </form>
 
-<script src="{{ asset('JavaScript/ContactoExtra/funciones.js') }}"></script>
+<script type="module" src="{{ asset('JavaScript/ContactoExtra/contactoExtra.js') }}"></script>
 
 </body>
 </html>

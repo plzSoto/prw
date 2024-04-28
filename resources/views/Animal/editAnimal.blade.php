@@ -11,14 +11,14 @@
 <body>
     <h1>Editar Animal</h1>
     <form id="editAnimalForm">
+        <label for="imagen">Imagen:</label>
+        <input type="text" id="imagen" value="{{ $animal->IMAGEN }}" required><br><br>
+
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" value="{{ $animal->NOMBRE }}" required><br><br>
 
         <label for="descripcion">Descripción:</label>
         <textarea id="descripcion" required>{{ $animal->DESCRIPCION }}</textarea><br><br>
-
-        <label for="imagen">Imagen:</label>
-        <input type="text" id="imagen" value="{{ $animal->IMAGEN }}" required><br><br>
 
         <label for="color_id">Color:</label>
         <select id="color_id" required>
@@ -35,9 +35,10 @@
             <option value="{{ $animal->ESPECIE_ID }}">{{ $animal->especie->ESPECIE }}</option>
         </select><br><br>
 
-        <button class="actualizar" type="button" onclick="actualizarAnimal({{ $animal->ID }})">Actualizar</button>
+        <button class="editar" id="{{ $animal->ID }}">Editar</button>
     </form>
 
-    <script src="{{ asset('JavaScript/Animal/funciones.js') }}"></script>
+    <script type="module" src="{{ asset('JavaScript/Animal/animal.js') }}"></script>
+
 </body>
 </html>

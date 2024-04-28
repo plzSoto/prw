@@ -19,7 +19,7 @@
             <p><strong>Email:</strong> {{ $contactoExtra->EMAIL }}</p>
 
             <button class="editar" onclick="window.location.href = '{{ route('ContactoExtra.editContactoExtra', ['id' => $contactoExtra->ID]) }}'">Editar</button>
-            <button class="eliminar" onclick="eliminarContactoExtra({{ $contactoExtra->ID }})">Eliminar</button>
+            <button class="eliminar" id="{{$contactoExtra->ID }}">Eliminar</button>
         </div>
         @endforeach
     </div>
@@ -28,6 +28,6 @@
         <p>No hay contactos extras registrados.</p>
     @endif
 
-    <script src="{{ asset('JavaScript/ContactoExtra/funciones.js') }}"></script>
+    <script type="module" src="{{ asset('JavaScript/ContactoExtra/contactoExtra.js') }}"></script>
 </body>
 </html>

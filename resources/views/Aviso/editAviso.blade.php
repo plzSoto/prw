@@ -20,24 +20,21 @@
         <label for="animal_id">Animal:</label>
         <select id="animal_id" required>
             <option value="{{ $aviso->ANIMAL_ID }}">{{ $aviso->animal ? $aviso->animal->NOMBRE : 'Seleccionar animal' }}</option>
-            <!-- Aquí puedes agregar más opciones si corresponde -->
         </select><br><br>
 
         <label for="contactoextra_id">Contacto extra:</label>
         <select id="contactoextra_id" required>
-            <option value="{{ $aviso->CONTACTOEXTRA_ID }}">{{ $aviso->contactoextra ? $aviso->contactoextra->NOMBRE : 'Seleccionar contacto extra' }}</option>
-            <!-- Aquí puedes agregar más opciones si corresponde -->
+            <option value="{{ $aviso->CONTACTOEXTRA_ID }}">{{ $aviso->contactoextra ? $aviso->contactoextra->TELEFONO : 'Seleccionar contacto extra' }}</option>
         </select><br><br>
 
         <label for="estado_id">Estado:</label>
         <select id="estado_id" required>
             <option value="{{ $aviso->ESTADO_ID }}">{{ $aviso->estado ? $aviso->estado->ESTADO : 'Seleccionar estado' }}</option>
-            <!-- Aquí puedes agregar más opciones si corresponde -->
         </select><br><br>
 
-        <button class="actualizar" type="button" onclick="actualizarAviso({{ $aviso->ID }})">Actualizar</button>
+        <button class="editar" id="{{ $aviso->ID }}">Editar</button>
     </form>
 
-    <script src="{{ asset('JavaScript/Aviso/funciones.js') }}"></script>
+    <script type="module" src="{{ asset('JavaScript/Aviso/aviso.js') }}"></script>
 </body>
 </html>

@@ -46,7 +46,7 @@ Route::post('/contactoExtra/store', [ContactoExtraController::class, 'store']);
 
 Route::delete('/animal/destroy/{id}', [AnimalController::class, 'destroy']);
 
-Route::delete('/aviso/destroy/{id}', [AvisoController::class, 'destroy']);
+Route::delete('/aviso/{id}', [AvisoController::class, 'destroy']);
 
 Route::delete('/contactoExtra/{id}', [ContactoExtraController::class, 'destroy']);
 

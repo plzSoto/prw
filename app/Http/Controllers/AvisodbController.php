@@ -59,7 +59,6 @@ class AvisodbController extends Controller
 
     public function eliminarAviso($ID)
     {
-        // Eliminar un aviso de la base de datos
         DB::table('t_aviso')->where('ID', '=', $ID)->delete();
 
         return response()->json(['success' => true]);
@@ -67,11 +66,9 @@ class AvisodbController extends Controller
 
     public function actualizarAviso(Request $request, $ID)
     {
-        // Actualizar el aviso en la base de datos
         $datos = $request->only(['FECHADESAPARECIDO', 'LUGARDESAPARECIDO', 'ANIMAL_ID', 'CONTACTOEXTRA_ID', 'ESTADO_ID']);
         DB::table('t_aviso')->where('ID', '=', $ID)->update($datos);
 
-        // Obtener el aviso actualizado con las relaciones
         $aviso = DB::table('t_aviso')
             ->leftJoin('t_animal', 't_aviso.ANIMAL_ID', '=', 't_animal.ID')
             ->leftJoin('t_contactoextra', 't_aviso.CONTACTOEXTRA_ID', '=', 't_contactoextra.ID')

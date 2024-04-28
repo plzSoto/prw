@@ -27,10 +27,19 @@ body {
     box-sizing: border-box;
 }
 
-h1 {
+strong {
+    color: rgb(0, 0, 0);
+}
+
+h2 {
     color: rgb(255, 255, 255);
 }
 
-strong {
-    color: rgb(0, 0, 0);
+h1 {
+    color: white;
+    text-align: center;
+}
+
+p {
+    color: white;
 }

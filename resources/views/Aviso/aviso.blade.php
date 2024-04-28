@@ -22,9 +22,10 @@
         <p><strong>Telefono contacto:</strong> {{ $aviso->contactoextra ? $aviso->contactoextra->TELEFONO : 'No disponible' }}</p>
         <p><strong>Email contacto:</strong> {{ $aviso->contactoextra ? $aviso->contactoextra->EMAIL : 'No disponible' }}</p>
         <p><strong>Estado:</strong> {{ $aviso->estado ? $aviso->estado->ESTADO : 'No disponible' }}</p>
+
         <button class="editar" onclick="window.location.href = '{{ route('Aviso.editAviso', ['id' => $aviso->ID]) }}'">Editar</button>
-        <button class="eliminar" onclick="eliminarAviso({{ $aviso->ID }})">Eliminar</button>
-        </div>
+        <button class="eliminar" id="{{ $aviso->ID }}">Eliminar</button>
+    </div>
         @endforeach
     </div>
 
@@ -33,6 +34,6 @@
 @endif
 
 
-    <script src="{{ asset('JavaScript/Aviso/funciones.js') }}"></script>
+    <script type="module" src="{{ asset('JavaScript/Aviso/aviso.js') }}"></script>
 </body>
 </html>

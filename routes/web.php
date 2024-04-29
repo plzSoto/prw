@@ -16,13 +16,13 @@ Route::post('/logout', [UsuarioController::class, 'logout'])->name('logout');
 
 Route::get('/loadDataAviso', [AvisoController::class, 'loadDataAviso']);
 Route::get('/loadDataAnimal', [AnimalController::class, 'loadDataAnimal']);
-Route::get('/contactoExtra', [ContactoExtraController::class, 'vista']);
 
-Route::get('/aviso', [AvisoController::class, 'vista']);
-Route::get('/animal', [AnimalController::class, 'vista']);
-Route::get('/formAnimal', [AnimalController::class, 'mostrarFormularioAnimales']);
-Route::get('/formAviso', [AvisoController::class, 'mostrarFormularioAvisos']);
-Route::get('/formContactoExtra', [ContactoExtraController::class, 'mostrarFormularioContactosExtras']);
+Route::get('/aviso', [AvisoController::class, 'vista'])->name('aviso');
+Route::get('/animal', [AnimalController::class, 'vista'])->name('animal');
+Route::get('/contactoExtra', [ContactoExtraController::class, 'vista'])->name('contactoExtra');
+Route::get('/formAnimal', [AnimalController::class, 'mostrarFormularioAnimales'])->name('formAnimal');
+Route::get('/formAviso', [AvisoController::class, 'mostrarFormularioAvisos'])->name('formAviso');
+Route::get('/formContactoExtra', [ContactoExtraController::class, 'mostrarFormularioContactosExtras'])->name('formContactoExtra');
 Route::get('/editAnimal', [AnimalController::class, 'mostrarFormularioEditAnimales']);
 Route::get('/editAviso', [AvisoController::class, 'mostrarFormularioEditAvisos']);
 Route::get('/editContactoExtra', [ContactoExtraController::class, 'mostrarFormularioEditContactosExtras']);

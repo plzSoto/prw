@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/Login/login.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/botones.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/compartido.css') }}">
     <title>Login</title>
 </head>
 <body>
@@ -23,4 +23,5 @@
 </form>
 
 </body>
+<footer><p>Fernando Sanchez Soto - 2024</p></footer>
 </html>

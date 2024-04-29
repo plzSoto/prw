@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('css/ContactoExtra/contactoExtra.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/botones.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/compartido.css') }}">
     <title>Lista de Contactos extras</title>
 </head>
+    <header>
+        <h1>Lista de Contactos</h1>
+        <div class="redirect">
+            <button class="botonHeader" onclick="window.location.href = '{{ route('animal') }}'">Animales</button>
+            <button class="botonHeaderPrincipal" onclick="window.location.href = '{{ route('formContactoExtra') }}'">Crear Nuevo Contacto</button>
+            <button class="botonHeader" onclick="window.location.href = '{{ route('aviso') }}'">Avisos</button>
+        </div class="redirect">
+    </header>
 <body>
-    <h1>Lista de Contactos extras</h1>
 
     <div class="container">
         @foreach($contactosExtras as $contactoExtra)
-        <div class="contactoExtra">
+        <div class="contenido">
             <h2>{{ $contactoExtra->NOMBRE }}</h2>
             <p><strong>Telefono:</strong> {{ $contactoExtra->TELEFONO }}</p>
             <p><strong>Email:</strong> {{ $contactoExtra->EMAIL }}</p>
@@ -30,4 +36,5 @@
 
     <script type="module" src="{{ asset('JavaScript/ContactoExtra/contactoExtra.js') }}"></script>
 </body>
+<footer><p>Fernando Sanchez Soto - 2024</p></footer>
 </html>

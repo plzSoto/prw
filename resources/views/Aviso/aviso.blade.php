@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('css/Aviso/aviso.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/botones.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/compartido.css') }}">
     <title>Lista de Avisos</title>
 </head>
-<body>
+<header>
     <h1>Lista de Avisos</h1>
+    <div class="redirect">
+        <button class="botonHeader" onclick="window.location.href = '{{ route('contactoExtra') }}'">Contactos</button>
+        <button class="botonHeaderPrincipal" onclick="window.location.href = '{{ route('formAviso') }}'">Crear Nuevo Aviso</button>
+        <button class="botonHeader" onclick="window.location.href = '{{ route('animal') }}'">Animales</button>
+    </div class="redirect">
+</header>
+<body>
 
     <div class="container">
         @foreach($avisos as $aviso)
-        <div class="aviso">
+        <div class="contenido">
         <p>{{ $aviso->animal ? $aviso->animal->IMAGEN : 'No disponible' }}</p>
         <h2><strong>C/: </strong>{{ $aviso->LUGARDESAPARECIDO }}</h2>
         <p><strong>Fecha desaparecido:</strong> {{ $aviso->FECHADESAPARECIDO }}</p>
@@ -36,4 +42,5 @@
 
     <script type="module" src="{{ asset('JavaScript/Aviso/aviso.js') }}"></script>
 </body>
+<footer><p>Fernando Sanchez Soto - 2024</p></footer>
 </html>

@@ -4,31 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('css/Animal/animal.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/botones.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/compartido.css') }}">
     <title>Lista de Animales</title>
 </head>
+    <header>
+        <h1>Lista de Animales</h1>
+        <div class="redirect">
+            <button class="botonHeader" onclick="window.location.href = '{{ route('contactoExtra') }}'">Contactos</button>
+            <button class="botonHeaderPrincipal" onclick="window.location.href = '{{ route('formAnimal') }}'">Crear Nuevo Animal</button>
+            <button class="botonHeader" onclick="window.location.href = '{{ route('aviso') }}'">Avisos</button>
+        </div class="redirect">
+    </header>
 <body>
-    <h1>Lista de Animales</h1>
 
-    @foreach($animales as $animal)
-    <div class="animal">
-        <p>{{ $animal->IMAGEN }}</p>
-        <h2>{{ $animal->NOMBRE }}</h2>
-        <p><strong>Descripción:</strong> {{ $animal->DESCRIPCION }}</p>
-        <p><strong>Color:</strong> {{ $animal->color->COLOR }}</p>
-        <p><strong>Tamaño:</strong> {{ $animal->tamaño->TAMAÑO }}</p>
-        <p><strong>Especie:</strong> {{ $animal->especie->ESPECIE }}</p>
+    <div class="container">
+        @foreach($animales as $animal)
+        <div class="contenido">
+            <p>{{ $animal->IMAGEN }}</p>
+            <h2>{{ $animal->NOMBRE }}</h2>
+            <p><strong>Descripción:</strong> {{ $animal->DESCRIPCION }}</p>
+            <p><strong>Color:</strong> {{ $animal->color->COLOR }}</p>
+            <p><strong>Tamaño:</strong> {{ $animal->tamaño->TAMAÑO }}</p>
+            <p><strong>Especie:</strong> {{ $animal->especie->ESPECIE }}</p>
 
-        <button class="editar" onclick="window.location.href = '{{ route('Animal.editAnimal', ['id' => $animal->ID]) }}'">Editar</button>
-        <button class="eliminar" id="eliminarAnimal{{ $animal->ID }}">Eliminar</button>
+            <button class="editar" onclick="window.location.href = '{{ route('Animal.editAnimal', ['id' => $animal->ID]) }}'">Editar</button>
+            <button class="eliminar" id="eliminarAnimal{{ $animal->ID }}">Eliminar</button>
+        </div>
+        @endforeach
     </div>
-    @endforeach
 
-@if(count($animales) === 0)
-<p>No hay animales registrados.</p>
-@endif
+    @if(count($animales) === 0)
+    <p>No hay animales registrados.</p>
+    @endif
 
-<script type="module" src="{{ asset('JavaScript/Animal/animal.js') }}"></script>
+    <script type="module" src="{{ asset('JavaScript/Animal/animal.js') }}"></script>
 </body>
+
+<footer><p>Fernando Sanchez Soto - 2024</p></footer>
 </html>

@@ -1,20 +1,35 @@
+import {
+    limpiarMensajesError,
+    validarCamposVacios,
+} from "../Validaciones/validacionFormularios.js";
+
 async function crearContactoExtra() {
     try {
-        const nombre = document.getElementById("nombre").value;
-        const telefono = document.getElementById("telefono").value;
-        const email = document.getElementById("email").value;
+        const nombre = document.getElementById("nombre");
+        const telefono = document.getElementById("telefono");
+        const email = document.getElementById("email");
 
-        const contactoExtraData = {
-            NOMBRE: nombre,
-            TELEFONO: telefono,
-            EMAIL: email,
-        };
+        const campos = [nombre, telefono, email];
+
+        limpiarMensajesError(campos);
+
+        const camposVacios = validarCamposVacios(campos);
+
+        if (camposVacios) {
+            throw new Error("Por favor completa todos los campos.");
+        }
 
         const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
         if (!csrfTokenMeta) {
             throw new Error("No se encontró el token CSRF");
         }
         const csrfToken = csrfTokenMeta.getAttribute("content");
+
+        const contactoExtraData = {
+            NOMBRE: nombre.value,
+            TELEFONO: telefono.value,
+            EMAIL: email.value,
+        };
 
         const response = await fetch("/contactoExtra/store", {
             method: "POST",
@@ -37,9 +52,6 @@ async function crearContactoExtra() {
         document.getElementById("formContactoExtra").reset();
     } catch (error) {
         console.error("Error al crear el contacto extra:", error);
-        alert(
-            "Error al crear el contacto extra. Por favor, inténtalo de nuevo."
-        );
     }
 }
 

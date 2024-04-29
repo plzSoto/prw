@@ -15,7 +15,7 @@
         <input type="text" id="nombre" value="{{ $contactoExtra->NOMBRE }}" required><br><br>
 
         <label for="telefono">Telefono:</label>
-        <input type="text" id="telefono" value="{{ $contactoExtra->TELEFONO }}" required><br><br>
+        <input type="number" id="telefono" value="{{ $contactoExtra->TELEFONO }}" required><br><br>
 
         <label for="email">Email:</label>
         <input type="text" id="email" value="{{ $contactoExtra->EMAIL }}" required><br><br>

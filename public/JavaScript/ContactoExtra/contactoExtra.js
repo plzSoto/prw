@@ -1,10 +1,8 @@
-import cargarDatos from "./cargarDatos.js";
 import crearContactoExtra from "./crearContactoExtra.js";
 import actualizarContactoExtra from "./actualizarContactoExtra.js";
 import eliminarContactoExtra from "./eliminarContactoExtra.js";
 
 document.addEventListener("DOMContentLoaded", function () {
-    cargarDatos();
     const editarContactoExtraButton = document.querySelector(".editar");
     if (editarContactoExtraButton) {
         const avisoId = editarContactoExtraButton.getAttribute("id");

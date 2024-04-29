@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/Aviso/formAviso.css') }}">
     <link rel="stylesheet" href="{{ asset('css/botones.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/errorForm.css') }}">
 
     <title>Crear Nuevo Aviso</title>
 </head>
@@ -18,7 +19,7 @@
     <input type="datetime-local" id="fechadesaparecido" required><br><br>
 
     <label for="lugardesaparecido">Lugar desaparecido:</label>
-    <textarea id="lugardesaparecido" required></textarea><br><br>
+    <textarea type="text" id="lugardesaparecido" required></textarea><br><br>
 
 
     <label for="animal_id">Animal:</label>

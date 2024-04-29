@@ -21,6 +21,7 @@ async function actualizarAviso(avisoId) {
         if (!csrfTokenMeta) {
             throw new Error("No se encontró el token CSRF");
         }
+
         const csrfToken = csrfTokenMeta.getAttribute("content");
 
         const response = await fetch(`/aviso/${avisoId}`, {
@@ -35,8 +36,6 @@ async function actualizarAviso(avisoId) {
         if (!response.ok) {
             throw new Error("Error al actualizar el aviso");
         }
-
-        alert("Aviso actualizado correctamente");
 
         window.location.href = "/aviso";
     } catch (error) {

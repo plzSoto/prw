@@ -10,9 +10,12 @@ async function actualizarContactoExtra(contactoextraId) {
             EMAIL: email,
         };
 
-        const csrfToken = document
-            .querySelector('meta[name="csrf-token"]')
-            .getAttribute("content");
+        const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+        if (!csrfTokenMeta) {
+            throw new Error("No se encontró el token CSRF");
+        }
+
+        const csrfToken = csrfTokenMeta.getAttribute("content");
 
         const response = await fetch(`/contactoExtra/${contactoextraId}`, {
             method: "PUT",
@@ -26,8 +29,6 @@ async function actualizarContactoExtra(contactoextraId) {
         if (!response.ok) {
             throw new Error("Error al actualizar el contacto extra");
         }
-
-        alert("Contacto extra actualizado correctamente");
 
         window.location.href = "/contactoExtra";
     } catch (error) {

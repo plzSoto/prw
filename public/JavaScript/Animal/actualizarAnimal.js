@@ -19,6 +19,7 @@ async function actualizarAnimal(animalId) {
         const csrfToken = document
             .querySelector('meta[name="csrf-token"]')
             .getAttribute("content");
+
         const response = await fetch(`/animal/${animalId}`, {
             method: "PUT",
             headers: {
@@ -31,8 +32,6 @@ async function actualizarAnimal(animalId) {
         if (!response.ok) {
             throw new Error("Error al actualizar el animal");
         }
-
-        alert("Animal actualizado correctamente");
 
         window.location.href = "/animal";
     } catch (error) {

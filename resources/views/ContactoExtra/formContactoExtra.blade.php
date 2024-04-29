@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/ContactoExtra/formContactoExtra.css') }}">
     <link rel="stylesheet" href="{{ asset('css/botones.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/errorForm.css') }}">
     <title>Crear Nuevo Contacto Extra</title>
 </head>
 <body>
@@ -17,7 +18,7 @@
     <input type="text" id="nombre" required><br><br>
 
     <label for="telefono">Teléfono:</label>
-    <input type="text" id="telefono" required><br><br>
+    <input type="number" id="telefono" required><br><br>
 
     <label for="email">Email:</label>
     <input type="email" id="email"><br><br>

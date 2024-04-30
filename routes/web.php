@@ -6,13 +6,14 @@ use App\Http\Controllers\AvisoController;
 use App\Http\Controllers\ContactoExtraController;
 use App\Http\Controllers\UsuarioController;
 
-Route::get("/", function () {
+Route::get("/login", function () {
     return view("Login.login");
 });
-
-Route::get('/login', [UsuarioController::class, 'formLogin'])->name('login');
-Route::post('/login', [UsuarioController::class, 'login']);
+Route::get('/login', [UsuarioController::class, 'vista'])->name('login');
+Route::post('/login', [UsuarioController::class, 'vista']);
 Route::post('/logout', [UsuarioController::class, 'logout'])->name('logout');
+// Route::post('/verificarUsuario', [UsuarioController::class, 'verificarUsuario'])->name('verificarUsuario');
+
 
 Route::get('/loadDataAviso', [AvisoController::class, 'loadDataAviso']);
 Route::get('/loadDataAnimal', [AnimalController::class, 'loadDataAnimal']);

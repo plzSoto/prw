@@ -17,6 +17,8 @@
     </header>
 <body>
 
+    <a class="cerrarSesion" href="{{ route('login') }}">Logout</a>
+
     <div class="container">
         @foreach($contactosExtras as $contactoExtra)
         <div class="contenido">

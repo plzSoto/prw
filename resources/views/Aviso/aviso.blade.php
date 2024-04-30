@@ -17,6 +17,8 @@
 </header>
 <body>
 
+    <a class="cerrarSesion" href="{{ route('login') }}">Logout</a>
+
     <select id="estadoFiltro" onchange="filtroAvisos()" class="filtros">
         <option value="">Filtro</option>
         @foreach($estados as $estado)

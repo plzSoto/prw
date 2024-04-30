@@ -6,6 +6,7 @@ use App\Models\Aviso;
 use App\Models\Animal;
 use App\Models\ContactoExtra;
 use App\Models\Estado;
+use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AvisodbController;
 
@@ -149,6 +150,18 @@ class AvisoController extends Controller
         try {
             $avisos = Aviso::where('ESTADO_ID', $estadoId)->get();
             return view('Aviso.aviso', compact('avisos'));
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Error interno del servidor'], 500);
+        }
+    }
+
+    public function existeAviso($animalId)
+    {
+        try {
+            $existeAviso = Aviso::where('ANIMAL_ID', $animalId)->exists();
+
+            return response()->json(['existe' => $existeAviso]);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
             return response()->json(['error' => 'Error interno del servidor'], 500);

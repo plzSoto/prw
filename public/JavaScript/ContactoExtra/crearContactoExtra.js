@@ -19,6 +19,15 @@ async function crearContactoExtra() {
             throw new Error("Por favor completa todos los campos.");
         }
 
+        const emailValido = validarEmail(email.value);
+
+        if (!emailValido) {
+            alert(
+                "El email debe contener @gmail.com, @gmail.es, @hotmail.com, @hotmail.es, @yahoo.com, @yahoo.es"
+            );
+            return;
+        }
+
         const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
         if (!csrfTokenMeta) {
             throw new Error("No se encontró el token CSRF");
@@ -53,6 +62,25 @@ async function crearContactoExtra() {
     } catch (error) {
         console.error("Error al crear el contacto extra:", error);
     }
+}
+
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const dominiosPermitidos = [
+        "@gmail.com",
+        "@gmail.es",
+        "@hotmail.com",
+        "@hotmail.es",
+        "@yahoo.com",
+        "@yahoo.es",
+    ];
+
+    if (!regex.test(email)) {
+        return false;
+    }
+
+    const dominio = email.substring(email.lastIndexOf("@"));
+    return dominiosPermitidos.includes(dominio);
 }
 
 export default crearContactoExtra;

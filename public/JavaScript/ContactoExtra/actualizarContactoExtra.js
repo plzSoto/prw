@@ -1,14 +1,41 @@
+import {
+    limpiarMensajesError,
+    validarCamposVacios,
+} from "../Validaciones/validacionFormularios.js";
+
 async function actualizarContactoExtra(contactoextraId) {
     try {
-        const nombre = document.getElementById("nombre").value;
-        const telefono = document.getElementById("telefono").value;
-        const email = document.getElementById("email").value;
+        const nombreElement = document.getElementById("nombre");
+        const telefonoElement = document.getElementById("telefono");
+        const emailElement = document.getElementById("email");
 
-        const contactoExtraData = {
-            NOMBRE: nombre,
-            TELEFONO: telefono,
-            EMAIL: email,
-        };
+        // Verificar si los elementos están presentes en el DOM
+        if (!nombreElement || !telefonoElement || !emailElement) {
+            throw new Error("Uno o más elementos no se encontraron en el DOM.");
+        }
+
+        const nombre = nombreElement.value;
+        const telefono = telefonoElement.value;
+        const email = emailElement.value;
+
+        const campos = [nombreElement, telefonoElement, emailElement];
+
+        limpiarMensajesError(campos);
+
+        const camposVacios = validarCamposVacios(campos);
+
+        if (camposVacios) {
+            throw new Error("Por favor completa todos los campos.");
+        }
+
+        const emailValido = validarEmail(email);
+
+        if (!emailValido) {
+            alert(
+                "El email debe contener @gmail.com, @gmail.es, @hotmail.com, @hotmail.es, @yahoo.com, @yahoo.es"
+            );
+            return;
+        }
 
         const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
         if (!csrfTokenMeta) {
@@ -16,6 +43,12 @@ async function actualizarContactoExtra(contactoextraId) {
         }
 
         const csrfToken = csrfTokenMeta.getAttribute("content");
+
+        const contactoExtraData = {
+            NOMBRE: nombre,
+            TELEFONO: telefono,
+            EMAIL: email,
+        };
 
         const response = await fetch(`/contactoExtra/${contactoextraId}`, {
             method: "PUT",
@@ -34,6 +67,25 @@ async function actualizarContactoExtra(contactoextraId) {
     } catch (error) {
         console.error("Error al actualizar el contacto extra:", error.message);
     }
+}
+
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const dominiosPermitidos = [
+        "@gmail.com",
+        "@gmail.es",
+        "@hotmail.com",
+        "@hotmail.es",
+        "@yahoo.com",
+        "@yahoo.es",
+    ];
+
+    if (!regex.test(email)) {
+        return false;
+    }
+
+    const dominio = email.substring(email.lastIndexOf("@"));
+    return dominiosPermitidos.includes(dominio);
 }
 
 export default actualizarContactoExtra;

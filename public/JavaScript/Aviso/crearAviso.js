@@ -33,6 +33,12 @@ async function crearAviso() {
         }
         const csrfToken = csrfTokenMeta.getAttribute("content");
 
+        const existeAviso = await verificarExistenciaAviso(animalId.value);
+        if (existeAviso) {
+            alert("Ya existe un aviso para este animal");
+            throw new Error("Ya existe un aviso con este ANIMAL_ID");
+        }
+
         const avisoData = {
             FECHADESAPARECIDO: fechadesaparecido.value,
             LUGARDESAPARECIDO: lugardesaparecido.value,
@@ -63,6 +69,15 @@ async function crearAviso() {
     } catch (error) {
         console.error("Error al crear el aviso:", error);
     }
+}
+
+async function verificarExistenciaAviso(animalId) {
+    const response = await fetch(`/aviso/existe/${animalId}`);
+    if (!response.ok) {
+        throw new Error("Error al verificar la existencia del aviso");
+    }
+    const data = await response.json();
+    return data.existe;
 }
 
 export default crearAviso;

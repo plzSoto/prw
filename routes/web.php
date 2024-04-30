@@ -27,6 +27,7 @@ Route::get('/formContactoExtra', [ContactoExtraController::class, 'mostrarFormul
 Route::get('/editAnimal', [AnimalController::class, 'mostrarFormularioEditAnimales']);
 Route::get('/editAviso', [AvisoController::class, 'mostrarFormularioEditAvisos']);
 Route::get('/editContactoExtra', [ContactoExtraController::class, 'mostrarFormularioEditContactosExtras']);
+Route::get('/aviso/existe/{id}', [AvisoController::class, 'existeAviso']);
 
 Route::post('/animal/store', [AnimalController::class, 'store']);
 Route::post('/aviso/store', [AvisoController::class, 'store']);

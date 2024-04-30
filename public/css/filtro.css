@@ -1,0 +1,9 @@
+.filtros {
+    top: 50px;
+    right: 20px;
+    border-radius: 5px;
+    width: 10%;
+    max-width: 200px;
+    padding: 5px;
+    border-radius: 5px;
+}

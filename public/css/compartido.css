@@ -213,3 +213,15 @@ select {
     background-color: #4d4d4d;
     color: white;
 }
+
+.filtros {
+    background-color: #8ba334;
+    position: absolute;
+    top: 105px;
+    right: 20px;
+    border-radius: 5px;
+    width: 10%;
+    max-width: 200px;
+    padding: 5px;
+    border-radius: 5px;
+}

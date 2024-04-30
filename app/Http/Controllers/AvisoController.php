@@ -39,15 +39,16 @@ class AvisoController extends Controller
     }
 
     public function vista()
-    {
-        try {
-            $avisos = Aviso::all();
-            return view('Aviso.aviso', compact('avisos'));
-        } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            return response()->json(['error' => 'Internal Server Error'], 500);
-        }
+{
+    try {
+        $estados = Estado::all();
+        $avisos = Aviso::all();
+        return view('Aviso.aviso', compact('avisos', 'estados'));
+    } catch (\Exception $e) {
+        \Log::error($e->getMessage());
+        return response()->json(['error' => 'Error interno del servidor'], 500);
     }
+}
 
     public function loadDataAviso()
     {
@@ -141,6 +142,16 @@ class AvisoController extends Controller
         } catch (\Exception $e) {
             \Log::error("Error al eliminar los avisos asociados al animal: " . $e->getMessage());
             return response()->json(['error' => 'Error al eliminar los avisos asociados al animal'], 500);
+        }
+    }
+    public function filtrarPorEstado($estadoId)
+    {
+        try {
+            $avisos = Aviso::where('ESTADO_ID', $estadoId)->get();
+            return view('Aviso.aviso', compact('avisos'));
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
 }

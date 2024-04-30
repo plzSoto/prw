@@ -17,20 +17,29 @@
     </header>
 <body>
 
+    <select id="especieFiltro" onchange="filtroAnimales()" class="filtros">
+        <option value="">Filtro</option>
+        @foreach($especies as $especie)
+            <option value="{{ $especie->ID }}">{{ $especie->ESPECIE }}</option>
+        @endforeach
+    </select>
+
+
     <div class="container">
         @foreach($animales as $animal)
-        <div class="contenido">
-            <p>{{ $animal->IMAGEN }}</p>
-            <h2>{{ $animal->NOMBRE }}</h2>
-            <p><strong>Descripción:</strong> {{ $animal->DESCRIPCION }}</p>
-            <p><strong>Color:</strong> {{ $animal->color->COLOR }}</p>
-            <p><strong>Tamaño:</strong> {{ $animal->tamaño->TAMAÑO }}</p>
-            <p><strong>Especie:</strong> {{ $animal->especie->ESPECIE }}</p>
+            <div class="contenido" dataEspecieId="{{ $animal->especie->ID }}">
+                <p>{{ $animal->IMAGEN }}</p>
+                <h2>{{ $animal->NOMBRE }}</h2>
+                <p><strong>Descripción:</strong> {{ $animal->DESCRIPCION }}</p>
+                <p><strong>Color:</strong> {{ $animal->color->COLOR }}</p>
+                <p><strong>Tamaño:</strong> {{ $animal->tamaño->TAMAÑO }}</p>
+                <p><strong>Especie:</strong> {{ $animal->especie->ESPECIE }}</p>
 
-            <button class="editar" onclick="window.location.href = '{{ route('Animal.editAnimal', ['id' => $animal->ID]) }}'">Editar</button>
-            <button class="eliminar" id="eliminarAnimal{{ $animal->ID }}">Eliminar</button>
-        </div>
+                <button class="editar" onclick="window.location.href = '{{ route('Animal.editAnimal', ['id' => $animal->ID]) }}'">Editar</button>
+                <button class="eliminar" id="eliminarAnimal{{ $animal->ID }}">Eliminar</button>
+            </div>
         @endforeach
+    </div>
     </div>
 
     @if(count($animales) === 0)

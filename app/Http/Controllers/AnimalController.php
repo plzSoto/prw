@@ -42,13 +42,15 @@ class AnimalController extends Controller
     public function vista()
     {
         try {
+            $especies = Especie::all();
             $animales = Animal::all();
-            return view('Animal.animal', compact('animales'));
+            return view('Animal.animal', compact('animales', 'especies'));
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
-            return response()->json(['error' => 'Internal Server Error'], 500);
+            return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
+
 
     public function loadDataAnimal()
     {
@@ -146,4 +148,17 @@ class AnimalController extends Controller
             return false;
         }
     }
+
+    public function filtrarPorEspecie($especieId)
+    {
+        try {
+            $animales = Animal::where('ESPECIE_ID', $especieId)->get();
+            return view('Animal.animal', compact('animales'));
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Error interno del servidor'], 500);
+        }
+    }
+
+
 }

@@ -17,9 +17,17 @@
 </header>
 <body>
 
+    <select id="estadoFiltro" onchange="filtroAvisos()" class="filtros">
+        <option value="">Filtro</option>
+        @foreach($estados as $estado)
+            <option value="{{ $estado->ID }}">{{ $estado->ESTADO }}</option>
+        @endforeach
+    </select>
+
+    </form>
     <div class="container">
         @foreach($avisos as $aviso)
-        <div class="contenido">
+        <div class="contenido" dataEstadoId="{{ $aviso->estado->ID }}">
         <p>{{ $aviso->animal ? $aviso->animal->IMAGEN : 'No disponible' }}</p>
         <h2><strong>C/: </strong>{{ $aviso->LUGARDESAPARECIDO }}</h2>
         <p><strong>Fecha desaparecido:</strong> {{ $aviso->FECHADESAPARECIDO }}</p>
@@ -39,8 +47,8 @@
     <p>No hay avisos registrados.</p>
 @endif
 
-
     <script type="module" src="{{ asset('JavaScript/Aviso/aviso.js') }}"></script>
+
 </body>
 <footer><p>Fernando Sanchez Soto - 2024</p></footer>
 </html>

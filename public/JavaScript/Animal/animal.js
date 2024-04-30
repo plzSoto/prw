@@ -2,6 +2,7 @@ import cargarDatos from "./cargarDatos.js";
 import crearAnimal from "./crearAnimal.js";
 import actualizarAnimal from "./actualizarAnimal.js";
 import eliminarAnimal from "./eliminarAnimal.js";
+import filtroAnimales from "./filtroAnimales.js";
 
 document.addEventListener("DOMContentLoaded", function () {
     cargarDatos();
@@ -25,4 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
             eliminarAnimal(animalId);
         });
     });
+
+    const especieFiltro = document.getElementById("especieFiltro");
+    if (especieFiltro) {
+        especieFiltro.addEventListener("change", filtroAnimales);
+    }
 });

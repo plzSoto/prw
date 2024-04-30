@@ -2,6 +2,7 @@ import cargarDatos from "./cargarDatos.js";
 import crearAviso from "./crearAviso.js";
 import actualizarAviso from "./actualizarAviso.js";
 import eliminarAviso from "./eliminarAviso.js";
+import filtroAvisos from "./filtroAvisos.js";
 
 document.addEventListener("DOMContentLoaded", function () {
     cargarDatos();
@@ -25,4 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
             eliminarAviso(avisoId);
         });
     });
+
+    const estadoFiltro = document.getElementById("estadoFiltro");
+    if (estadoFiltro) {
+        estadoFiltro.addEventListener("change", filtroAvisos);
+    }
 });

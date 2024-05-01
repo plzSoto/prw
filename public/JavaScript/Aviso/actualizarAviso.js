@@ -17,25 +17,11 @@ async function actualizarAviso(avisoId) {
             estadoId,
         ];
 
-        limpiarMensajesError(campos);
-
-        const camposVacios = validarCamposVacios(campos);
-
-        if (camposVacios) {
-            throw new Error("Por favor completa todos los campos.");
-        }
-
         const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
         if (!csrfTokenMeta) {
             throw new Error("No se encontró el token CSRF");
         }
         const csrfToken = csrfTokenMeta.getAttribute("content");
-
-        const existeAviso = await verificarExistenciaAviso(animalId, avisoId);
-        if (existeAviso) {
-            alert("Ya existe un aviso para este animal");
-            throw new Error("Ya existe un aviso con este ANIMAL_ID");
-        }
 
         const avisoData = {
             FECHADESAPARECIDO: fechadesaparecido,

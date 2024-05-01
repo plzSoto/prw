@@ -37,7 +37,7 @@
         <p><strong>Nombre contacto:</strong> {{ $aviso->contactoextra ? $aviso->contactoextra->NOMBRE : 'No disponible' }}</p>
         <p><strong>Telefono contacto:</strong> {{ $aviso->contactoextra ? $aviso->contactoextra->TELEFONO : 'No disponible' }}</p>
         <p><strong>Email contacto:</strong> {{ $aviso->contactoextra ? $aviso->contactoextra->EMAIL : 'No disponible' }}</p>
-        <p><strong>Estado:</strong> {{ $aviso->estado ? $aviso->estado->ESTADO : 'No disponible' }}</p>
+        <p><strong>Estado:</strong> {{ $aviso->estado ? $aviso->estado->ESTADO: 'No disponible' }}</p>
 
         <button class="editar" onclick="window.location.href = '{{ route('Aviso.editAviso', ['id' => $aviso->ID]) }}'">Editar</button>
         <button class="eliminar" id="{{ $aviso->ID }}">Eliminar</button>

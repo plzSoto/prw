@@ -9,7 +9,6 @@ class AvisodbController extends Controller
 {
     public function obtenerAviso()
     {
-        // Obtener todos los avisos con sus relaciones
         $aviso = DB::table('t_aviso')
             ->leftJoin('t_animal', 't_aviso.ANIMAL_ID', '=', 't_animal.ID')
             ->leftJoin('t_contactoextra', 't_aviso.CONTACTOEXTRA_ID', '=', 't_contactoextra.ID')
@@ -22,7 +21,6 @@ class AvisodbController extends Controller
 
     public function obtenerAvisoPorID($ID)
     {
-        // Obtener un aviso por su ID
         $aviso = DB::table('t_aviso')
             ->leftJoin('t_animal', 't_aviso.ANIMAL_ID', '=', 't_animal.ID')
             ->leftJoin('t_contactoextra', 't_aviso.CONTACTOEXTRA_ID', '=', 't_contactoextra.ID')
@@ -36,7 +34,6 @@ class AvisodbController extends Controller
 
     public function crearAviso(Request $request)
     {
-        // Crear un nuevo aviso en la base de datos
         $avisoID = DB::table('t_aviso')->insertGetId([
             'FECHADESAPARECIDO' => $request->input('FECHADESAPARECIDO'),
             'LUGARDESAPARECIDO' => $request->input('LUGARDESAPARECIDO'),
@@ -45,7 +42,6 @@ class AvisodbController extends Controller
             'ESTADO_ID' => $request->input('ESTADO_ID'),
         ]);
 
-        // Obtener el aviso recién creado con las relaciones
         $aviso = DB::table('t_aviso')
             ->leftJoin('t_animal', 't_aviso.ANIMAL_ID', '=', 't_animal.ID')
             ->leftJoin('t_contactoextra', 't_aviso.CONTACTOEXTRA_ID', '=', 't_contactoextra.ID')

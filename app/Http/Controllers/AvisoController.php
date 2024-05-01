@@ -6,7 +6,6 @@ use App\Models\Aviso;
 use App\Models\Animal;
 use App\Models\ContactoExtra;
 use App\Models\Estado;
-use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AvisodbController;
 
@@ -40,16 +39,16 @@ class AvisoController extends Controller
     }
 
     public function vista()
-{
-    try {
-        $estados = Estado::all();
-        $avisos = Aviso::all();
-        return view('Aviso.aviso', compact('avisos', 'estados'));
-    } catch (\Exception $e) {
-        \Log::error($e->getMessage());
-        return response()->json(['error' => 'Error interno del servidor'], 500);
+    {
+        try {
+            $estados = Estado::all();
+            $avisos = Aviso::all();
+            return view('Aviso.aviso', compact('avisos', 'estados'));
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Error interno del servidor'], 500);
+        }
     }
-}
 
     public function loadDataAviso()
     {
@@ -110,7 +109,6 @@ class AvisoController extends Controller
 
         return response()->json(['message' => 'Aviso actualizado correctamente'], 200);
     }
-
 
     public function edit($id)
     {

@@ -18,9 +18,9 @@
         <label for="password">Contraseña:</label>
         <input type="password" name="password" id="password" required><br><br>
 
-        <button class="iniciarSesion" type="submit" href="{{ route('animal') }}">Iniciar sesión</button>
+        <button class="iniciarSesion" type="submit" href="{{ route('aviso') }}">Iniciar sesión</button>
 
-        <a class="sinSesion" href="{{ route('animal') }}">Contrinuar sin iniciar sesion</a>
+        <a class="sinSesion" href="{{ route('aviso') }}">Contrinuar sin iniciar sesion</a>
     </form>
 
 

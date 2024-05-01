@@ -143,6 +143,7 @@ class AvisoController extends Controller
             return response()->json(['error' => 'Error al eliminar los avisos asociados al animal'], 500);
         }
     }
+
     public function filtrarPorEstado($estadoId)
     {
         try {

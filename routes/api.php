@@ -9,7 +9,6 @@ use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\ContactoExtraController;
 use App\Http\Controllers\TamañoController;
 use App\Http\Controllers\UsuarioController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*

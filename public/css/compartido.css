@@ -73,9 +73,9 @@ p {
     color: white;
     border: 5px;
     cursor: pointer;
-    margin: 0 auto; /* Centra horizontalmente */
-    display: block; /* Asegura que ocupe todo el ancho disponible */
-    width: 300px; /* Ancho específico en píxeles */
+    margin: 0 auto;
+    display: block;
+    width: 300px;
 }
 
 body {
